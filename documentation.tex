@@ -1,0 +1,70 @@
+\documentclass[times, utf8, seminar, numeric]{fer}
+
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{svg}
+\usepackage{graphicx}
+\usepackage[section]{placeins}
+
+\usetikzlibrary{positioning} 
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+% ovo su postavke za kod
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\renewcommand{\lstlistingname}{Isječak koda} % Listing -> Isječak koda
+
+\tikzset{
+  layer/.style={rectangle, draw=black, fill=white, thick, inner sep=.3cm, node distance=.5cm},
+  io/.style={rectangle, rounded corners, draw=black, fill=white, thick, inner sep=.3cm, node distance=.5cm},
+  to/.style={->, shorten >=1pt, semithick}
+}
+
+\graphicspath{{./figures/}}
+
+\begin{document}
+
+\title{essaMEM: finding maximal exact matches using enhanced sparse suffix arrays}
+\author{Daniel Guja, Antun Razum, Petra Rebernjak}
+\voditelj{doc. dr. sc. Mirjana Domazet-Lošo}
+
+\maketitle
+\tableofcontents
+
+\chapter{Uvod}
+
+\chapter{Zaključak}
+
+\bibliography{literature}
+\bibliographystyle{fer}
+
+\begin{sazetak}
+
+
+\kljucnerijeci{}
+\end{sazetak}
+
+\end{document}
