@@ -26,17 +26,52 @@
 \tableofcontents
 
 \chapter{Uvod}
-Maksimalni točno slaganje \engl{maximal exact matches, MEM} je točno slaganje između dva niza koji ne može biti produžen niti u lijevu stranu niti u desnu stranu bez da se dogodi neslaganje između ta dva niza. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. To je osnovna struktura podataka koja omogućuje brzu analizu znakova. 
+Maksimalno točno slaganje \engl{Maximal Exact Matches, MEM} je točno slaganje između dva niza koje se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između ta dva niza. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. To je osnovna struktura podataka koja omogućuje brzu analizu znakova. 
 
-Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 2000.-ih godina. Kako se sve više pokazala potreba za korištenjem sufiksnih stabala, tražila se nova struktura podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je što u praksi sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora, a često $15n-20n$ okteta. Sufiksno polje zauzima teorijski $O(n log n)$ bita, u praksi obično $4n$ okteta.
+Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski otisak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n-20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
 
-Memorijski učinkoviti algoritmi za pronalaženje MEM-ova mogu se podijeliti u dvije kategorije: \textit{online} i indeksne metode. essaMEM pripada kategoriji indeksnih metoda algoritama za pronalaženje MEM-ova. Ova metoda uspoređuje jedan niz s indeksnom strukturom izgrađenom nad drugim nizom. Prednost ovog pristupa je ta što se konstruirana indeksna struktura može ponovno iskoristiti, odnosno za sljedeću usporedbu nizova nije potrebno ponovno indeksirati niz. 
+Uobičajeno se koriste sufiksna stabla ili unaprijeđena sufiksna polja \engl{Enhanced Suffix Arrays, ESA} za pronalaženje MEM-ova. ESA se sastoji od četiri polja: sufiksnog polja, polja najvećih zajedničkih prefiksa \engl{Longest Common Prefix, LCP}, child polja i polja sufiksnih poveznica \engl{suffix link arrays} koja sadrže dijelove informacija iz sufiksnog stabla te zajedno dostižu potpunu ekspresivnost sufiksnih stabala. Dakle, svaki problem koji se može riješiti korištenjem sufiksnih stabala, može se riješiti i korištenjem ESA s istom asimptotskom složenošću.
 
-Uobičajeno se koriste sufiksna stabla ili unaprijeđena sufiksna polja \engl{enhanced suffix arrays, ESA} za pronalaženje MEM-ova. ESA se sastoji od četiri polja: sufiksnog polja, polja najvećih zajedničkih prefiksa \engl{longest common prefix}, child polja i polja sufiksnih poveznica \engl{suffix link arrays} koja sadrže dijelove informacija iz sufiksnog stabla te zajedno dostižu potpunu ekspresivnost sufiksnih stabala, odnosno svaki problem koji se može riješiti korištenjem sufiksnih stabala, može se riješiti i korištenjem ESA s istom asimptotskom složenošću.
+Khan \textit{et. al.} u \cite{ssa} savjetuje korištenje rijetkih sufiksnih polja \engl{Sparse Suffix Arrays, SSA}. Kod SSA, indeksira se svaki \textit{K}-ti sufiks. Parametar \textit{K} naziva se parametar rijetkosti, \textit{sparsness factor}. Njihov algoritam za pronalaženje MEM-ova koji se temelji na SSA pronalazi MEM-ove puno brže od prethodnih metoda te koristi manje memorije. Posljedično, uporabom SSA moguće je indeksirati znatno veće genome.
 
-Khan et al. (2009)\todo{referenciraj se} savjetuje korištenje rijetkih sufiksnih polja \engl{sparse suffix arrays, SSA}. Kod SSA, indeksira se svaki \textit{K}-ti sufiks. Parametar \textit{K} naziva se parametar rijetkosti \textit{sparsness factor}. Njihov algoritam za pronalaženje MEM-ova koji se temelji na SSA pronalazi MEM-ove puno brže od prethodnih metoda te koristi manje memorije. Kao posljedica toga, uporabom SSA mogu se indeksirati puno veći genomi nego što su se mogli prije.
+Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u \cite{ssa} implementiranjem rijetkih child polja za velike parametre rijetkosti. Dodatno, korištenjem sufiksnih poveznica \engl{suffix links} i child polja gradi se unaprijeđeno rijetko sufiksno polje \engl{Enhanced Sparse Suffix Array, ESSA} koje ima istu ekspresivnost kao i sufiksno stablo za podnizove veće od \textit{K}. Memorijski učinkoviti algoritmi za pronalaženje MEM-ova mogu se podijeliti u dvije kategorije: \textit{online} i \textit{index} metode. essaMEM pripada kategoriji indeksnih metoda algoritama za pronalaženje MEM-ova. Ova metoda uspoređuje niz $Q$ veličine $m$ niz s indeksnom strukturom izgrađenom nad referentnim nizom $S$ veličine $n$. Prednost ovog pristupa je ta što se konstruirana indeksna struktura može ponovno iskoristiti, odnosno za sljedeću usporedbu nizova nije potrebno ponovno indeksirati niz. 
 
-\todo{essaMEM: finding maximal… (referenciraj se na rad)} želi poboljšati metodu predstavljenu u Khan et. al. implementiranjem rijetkih child polja za velike parametre rijetkosti. Korištenjem i sufiksnih poveznica \engl{suffix links} i child polja gradi se unaprijeđeno rijetko sufiksno polje \engl{enhanced sparse suffix array, essa} koje ima istu ekspresivnost kao i sufiksna stabla za podnizove veće od K. Cilj ovog projektnog zadatka je izgraditi rijetko child polje.
+Cilj ovog projektnog zadatka je izgraditi rijetko child polje.
+
+\chapter{Child polje}
+MEM-ovi se pronalaze obilaskom sufiksnog stabla odozgo prema dolje. Koristeći SA i LCP polje ovaj problem moguće je riješiti u složenosti $O(m + log n)$. Ukoliko se SA proširi dodatnim child poljem problem je moguće riješiti u složenosti $O(m)$.
+
+Dohvat djece unutarnjih čvorova konceptualnog sufiksnog stabla ostvarenog pomoću SA i LCP polja moguće je obaviti u konstantnom vremenu koristeći child polje. Za izgradnju child polja koristi se informacija o LCP intervalima. Definicija LCP intervala dana je u \citep{esa}. Bitno je naglasiti da su LCP intervali samo konceptualni te se nikada ne konstruiraju niti čuvaju u memoriji. Obzirom da uvođenje parametra rijetkosti $K$ ne utječe na definiciju LCP intervala, moguće je izgraditi rijetko child polje.
+
+Child polje je duljine $n / K$, a svaki element u polju sadrži vrijednosti $up$, $down$ i $nextLIndex$. Te vrijednosti definirane su u nastavku:
+
+$childtab[i].up = min\{q \in [0..i-1] \mid lcptab[q] > lcptab[i]$ i $\forall k \in [q+1..i-1] : lcptab[k] \geq lcptab[q]\}$
+
+$childtab[i].down = max\{q \in [i+1..n] \mid lcptab[q] > lcptab[i]$ i $\forall k \in [i+1..q-1] : lcptab[k] > lcptab[q]\}$
+
+$childtab[i].nextLIndex = min\{q \in [i+1..n] \mid lcptab[q] = lcptab[i]$ i $\forall k \in [i+1..q-1] : lcptab[k] > lcptab[i]\}$
+
+Tablica \ref{tbl:example} prikazuje vrijednosti sufiks i LCP polja te sve tri vrijednosti child polja na primjeru \textit{S = mississippi}.
+
+\begin{table}[h]
+	\centering
+	\caption{SA  niza \textit{S = mississippi} proširen s LCP i child tablicom.}
+	\label{tbl:example}
+	
+	\begin{tabular}{ccccccl}
+		\hline
+    \texttt{i} & \texttt{sa[i]} & \texttt{lcp[i]} & \texttt{up[i]} & \texttt{down[i]} & \texttt{nextLIndex[i]} & \texttt{s[sa[i]]} \\ \hline
+    0 & 10 &  0 &    &  1 &  2 & \texttt{i\$}           \\
+    1 &  4 &  1 &    &    &    & \texttt{issippi\$}     \\
+    2 &  0 &  0 &  1 &    &  3 & \texttt{mississippi\$} \\
+    3 &  8 &  0 &    &    &  4 & \texttt{ppi\$}         \\
+    4 &  6 &  0 &    &  5 &    & \texttt{sippi\$}       \\
+    5 &  2 &  1 &    &    &    & \texttt{ssissippi\$}   \\ \hline
+	\end{tabular}
+\end{table}
+
+
+Child polje nosi informaciju o odnosu roditelj-dijete u LCP intervalima. Za LCP interval [i..j] s \textit{l}-indeksima $i_1 < i _2 < … < i_k$, $childtab[i].down$ ili $childtab[j+1].up$ vrijednost koristi se za dobivanje prvog \textit{l}-indeksa $i_1$. Ostali \textit{l}-indeksi $i _2, …, i_k$ dobivaju se redom iz $childtab[i_1].nextLIndex$, …, $childtab[i_{k-1}].nextLIndex$. U \cite{esa} je dokazano da su sada child intervali LCP intervala [i..j] redom [$i..i_1-1$], [$i_1..i_2-1$], …, [$i_k..j$].
 
 \chapter{Konstrukcija child polja}
 
@@ -67,23 +102,6 @@ Khan et al. (2009)\todo{referenciraj se} savjetuje korištenje rijetkih sufiksni
 		\KwRet{\dataset{$modeli$}}\;
 	}
 \end{algorithm}
-
-\begin{table}[h]
-	\centering
-	\caption{Primjer...}
-	\label{tbl:example}
-	
-	\begin{tabular}{ccccccl}
-		\hline
-    \texttt{i} & \texttt{sa[i]} & \texttt{lcp[i]} & \texttt{up[i]} & \texttt{down[i]} & \texttt{nextLIndex[i]} & \texttt{s[sa[i]]} \\ \hline
-    0 & 10 &  0 &    &  1 &  2 & \texttt{i\$}           \\
-    1 &  4 &  1 &    &    &    & \texttt{issippi\$}     \\
-    2 &  0 &  0 &  1 &    &  3 & \texttt{mississippi\$} \\
-    3 &  8 &  0 &    &    &  4 & \texttt{ppi\$}         \\
-    4 &  6 &  0 &    &  5 &    & \texttt{sippi\$}       \\
-    5 &  2 &  1 &    &    &    & \texttt{ssissippi\$}   \\ \hline
-	\end{tabular}
-\end{table}
 
 \chapter{Rezultati}
 
