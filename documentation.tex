@@ -85,6 +85,23 @@ Khan et al. (2009)\todo{referenciraj se} savjetuje korištenje rijetkih sufiksni
 	
 \end{algorithm}
 
+\begin{table}[h]
+	\centering
+	\caption{Primjer...}
+	\label{tbl:example}
+	
+	\begin{tabular}{ccccccl}
+		\hline
+    \texttt{i} & \texttt{sa[i]} & \texttt{lcp[i]} & \texttt{up[i]} & \texttt{down[i]} & \texttt{nextLIndex[i]} & \texttt{s[sa[i]]} \\ \hline
+    0 & 10 &  0 &    &  1 &  2 & \texttt{i\$}           \\
+    1 &  4 &  1 &    &    &    & \texttt{issippi\$}     \\
+    2 &  0 &  0 &  1 &    &  3 & \texttt{mississippi\$} \\
+    3 &  8 &  0 &    &    &  4 & \texttt{ppi\$}         \\
+    4 &  6 &  0 &    &  5 &    & \texttt{sippi\$}       \\
+    5 &  2 &  1 &    &    &    & \texttt{ssissippi\$}   \\ \hline
+	\end{tabular}
+\end{table}
+
 \chapter{Rezultati}
 
 \chapter{Zaključak}
