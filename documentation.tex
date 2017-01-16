@@ -76,31 +76,48 @@ Child polje nosi informaciju o odnosu roditelj-dijete u LCP intervalima. Za LCP 
 \chapter{Konstrukcija child polja}
 
 \begin{algorithm}[h]
-	\caption{Generator skupa podataka}
-	\label{alg:generator}
+	\caption{Algoritam za konstrukciju child polja}
+	\label{alg:child-array}
 
 	\SetKwProg{Fun}{function}{ begin}{end}
-	\SetKwFunction{gen}{generiraj}
-	\SetKwFunction{dd}{dDis}
-	\SetKwFunction{rd}{kDis}
-	\SetKwFunction{sample}{uzorak}
-	\SetKwFunction{inode}{UlazniCvor}
-	\SetKwFunction{gmod}{generirajModel}
-	\SetKwFunction{add}{dodaj}
-	\SetKwFunction{dataset}{SkupPodataka}
+	\SetKwFunction{cca}{constructChildArray}
+	\SetKw{and}{and}
 	
-	\Fun{\gen{$brojModela$}}{
-		$brojUlaza$ = \dd{inputNodeCount}.\sample{}\;
-		$ulazi$ = []\;
-		\For{$i$ = $0$ \KwTo $brojUlaza - 1$}{
-			$ulazi$.\add{\inode{\rd{initialReliability}.\sample{}}}\;
+	\Fun{\cca{$LCP$}}{
+	    $lastIndex = -1$\;
+	    $ST.push(0)$\;
+	    \For{$i = 1$ \KwTo $N/K - 1$}{
+			\While{$LCP[i] < LCP[ST.top]$}{
+			   $lastIndex=ST.pop$\;
+			   \If{$LCP[i] \leq LCP[ST.top]$ \and $LCP[ST.top] \neq LCP[lastIndex]$}{
+			       $CHILD[ST.top].down = lastIndex$\;
+			   }
+			}
+			\If{$lastIndex \neq -1$}{
+                $CHILD[i].up = lastIndex$\;
+                $lastIndex = -1$\;			
+			}
+			$ST.push(i)$\;
 		}
-		$modeli$ = []\;
-		\For{$i$ = $0$ \KwTo $brojModela - 1$}{
-			$modeli$.\add{\gmod{$ulazi$}}\;
+		\While{$0 < LCP[ST.top]$}{
+            $lastIndex = ST.pop$\;
+            \If{$0 \leq LCP[ST.top]$ \and $LCP[ST.top] \neq LCP[lastIndex]$}{
+                $CHILD[ST.top].down = lastIndex$
+            }		
 		}
-		\KwRet{\dataset{$modeli$}}\;
+        \For{$i = 1$ \KwTo $n$}{
+            \While{$LCP[i] < LCP[ST.top]$}{
+                $ST.pop$\;            
+            }
+            \If{$LCP[i] = LCP[ST.top]$}{
+                $lastIndex = ST.pop$\;
+                $CHILD[lastIndex].next\_l\_index = i$\;
+            }
+            $ST.push(i)$\;
+        }
 	}
+	
+	
 \end{algorithm}
 
 \chapter{Rezultati}
