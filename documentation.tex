@@ -128,33 +128,95 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 
 \begin{table}[h]
 	\centering
-	\caption{Usporedba vremena izvršavanja i utrošene memorije izvedene implementacije i referentnog rješenja za različite primjere i vrijednosti parametra $k$}
+	\caption{Usporedba vremena izvršavanja izvedene implementacije i referentnog rješenja za različite primjere i vrijednosti parametra $K$}
 	\label{tbl:results}
 	
 	\begin{tabular}{lrrrrrr}
 		\hline
-    Primjer & Broj baza & $K$ & $t_{impl}$ & $t_{ref}$ & $mem_{impl}$ & $mem_{ref}$ \\ \hline
-    \textit{E. coli \#1} & 5676107 & 5 & 0.709326 & 0.9197 & 26580 & 29720 \\
-    \textit{E. coli \#1} & 5676107 & 20 & 5.16589 & 5.30045 & 12352 & 13584 \\
-    \textit{E. coli \#1} & 5676107 & 100 & 8.82316 & 8.95225 & 9616 & 13580 \\
-    \textit{E. coli \#2} & 4393089 & 5 & 0.553883 & 0.701784 & 20488 & 25180 \\
-    \textit{E. coli \#2} & 4393089 & 20 & 4.12148 & 4.0905 & 10916 & 11676 \\
-    \textit{E. coli \#2} & 4393089 & 100 & 7.17556 & 6.75088 & 10600 & 11388 \\
-    \textit{Gen \#1} & 100 & 5 & 0 & 0.004481 & 1476 & 9808 \\
-    \textit{Gen \#2} & 1000 & 5 & 0 & 0 & 1480 & 9816 \\
-    \textit{Gen \#2} & 1000 & 20 & 0.005451 & 0.004367 & 1512 & 1648 \\
-    \textit{Gen \#3} & 10000 & 5 & 0.00917 & 0.001312 & 1504 & 9840 \\
-    \textit{Gen \#3} & 10000 & 20 & 0.015292 & 0.018068 & 1524 & 1664 \\
-    \textit{Gen \#3} & 10000 & 100 & 0.027169 & 0.024442 & 1636 & 1752 \\
-    \textit{Gen \#4} & 100000 & 5 & 0.012961 & 0.014353 & 1884 & 10160 \\
-    \textit{Gen \#4} & 100000 & 20 & 0.124132 & 0.117844 & 1668 & 1832 \\
-    \textit{Gen \#4} & 100000 & 100 & 0.178385 & 0.174271 & 1736 & 1848 \\
-    \textit{Gen \#5} & 1000000 & 5 & 0.100779 & 0.0977 & 5296 & 13208 \\
-    \textit{Gen \#5} & 1000000 & 20 & 1.13231 & 1.03717 & 3100 & 3432 \\
-    \textit{Gen \#5} & 1000000 & 100 & 1.59657 & 1.71334 & 2576 & 3436 \\
+        Primjer & Broj baza & $K$ & $t_{impl}$ & $t_{ref}$ & $t_{razlika}$ \\ \hline
+        \textit{E. coli} & 5676107 & 5 & 0.776514 & 0.861211 & 9.83\% \\
+        \textit{E. coli} & 5676107 & 20 & 5.30142 & 5.3719 & 1.31\% \\
+        \textit{E. coli} & 5676107 & 100 & 9.01133 & 8.96336 & -0.53\% \\ \hline
+        \textit{E. coli} & 4393089 & 5 & 0.579196 & 0.697147 & 16.91\% \\
+        \textit{E. coli} & 4393089 & 20 & 4.17962 & 4.21829 & 0.91\% \\
+        \textit{E. coli} & 4393089 & 100 & 6.95086 & 6.83971 & -1.62\% \\ \hline
+        \textit{Helicobacter} & 1617653 & 5 & 0.168793 & 0.198376 & 14.91\% \\
+        \textit{Helicobacter} & 1617653 & 20 & 1.65821 & 1.59517 & -3.95\% \\
+        \textit{Helicobacter} & 1617653 & 100 & 2.62 & 2.59599 & -0.92\% \\ \hline
+        \textit{Methylobacillus} & 2971517 & 5 & 0.353354 & 0.389577 & 9.29\% \\
+        \textit{Methylobacillus} & 2971517 & 20 & 2.95769 & 2.95796 & 0.00\% \\
+        \textit{Methylobacillus} & 2971517 & 100 & 4.71582 & 4.66719 & -1.04\% \\
     \hline
 	\end{tabular}
 \end{table}
+
+\begin{table}[h]
+	\centering
+	\caption{Usporedba utrošene memorije izvedene implementacije i referentnog rješenja za različite primjere i vrijednosti parametra $K$}
+	\label{tbl:results}
+	
+	\begin{tabular}{lrrrrrr}
+		\hline
+		Primjer & Broj baza & $K$ & $mem_{impl}$ & $mem_{ref}$ & $mem_{razlika}$ \\ \hline
+        \textit{E. coli} & 5676107 & 5 & 24988 & 29652 & 15.72\% \\
+        \textit{E. coli} & 5676107 & 20 & 11824 & 14004 & 15.56\% \\
+        \textit{E. coli} & 5676107 & 100 & 9772 & 12908 & 24.29\% \\ \hline
+        \textit{E. coli} & 4393089 & 5 & 21292 & 25108 & 15.19\% \\
+        \textit{E. coli} & 4393089 & 20 & 11464 & 12016 & 4.59\% \\
+        \textit{E. coli} & 4393089 & 100 & 11000 & 10180 & -8.05\% \\ \hline
+        \textit{Helicobacter} & 1617653 & 5 & 7976 & 15416 & 48.26\% \\
+        \textit{Helicobacter} & 1617653 & 20 & 4156 & 4752 & 12.54\% \\
+        \textit{Helicobacter} & 1617653 & 100 & 3376 & 4760 & 29.07\% \\ \hline
+        \textit{Methylobacillus} & 2971517 & 5 & 13752 & 20012 & 31.28\% \\
+        \textit{Methylobacillus} & 2971517 & 20 & 6552 & 7312 & 10.39\% \\
+        \textit{Methylobacillus} & 2971517 & 100 & 6456 & 8172 & 20.99\% \\
+    \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption{Usporedba vremena izvršavanja izvedene implementacije i referentnog rješenja za različite generirane primjere i različite vrijednosti parametra $K$}
+	\label{tbl:results}
+	
+	\begin{tabular}{lrrrrr}
+		\hline
+        Broj baza & $K$ & $t_{impl}$ & $t_{ref}$ & $t_{razlika}$ \\ \hline
+        $10^5$ & 5 & 0.007086 & 0.014893 & 52.42\% \\
+        $10^5$ & 20 & 0.124813 & 0.127244 & 1.91\% \\
+        $10^5$ & 100 & 0.181825 & 0.15902 & -14.34\% \\ \hline
+        $10^6$ & 5 & 0.106828 & 0.141809 & 24.66\% \\
+        $10^6$ & 20 & 1.05831 & 1.04681 & -1.09\% \\
+        $10^6$ & 100 & 1.59274 & 1.59819 & 0.034\% \\ \hline
+        $10^7$ & 5 & 1.41559 & 1.56725 & 9.67\% \\
+        $10^7$ & 20 & 9.81479 & 9.53324 & -2.95\% \\
+        $10^7$ & 100 & 15.609 & 15.5091 & -0.064\% \\
+    \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption{Usporedba utrošene memorije izvedene implementacije i referentnog rješenja za različite generirane primjere i različite vrijednosti parametra $K$}
+	\label{tbl:results}
+	
+	\begin{tabular}{lrrrrr}
+		\hline
+        Broj baza & $K$ & $mem_{impl}$ & $mem_{ref}$ & $mem_{razlika}$ \\ \hline
+        $10^5$ & 5 & 1880 & 10160 & 81.49\% \\
+        $10^5$ & 20 & 1664 & 1832 & 9.17\% \\
+        $10^5$ & 100 & 1736 & 1848 & 6.06\% \\ \hline
+        $10^6$ & 5 & 5288 & 13208 & 59.96\% \\
+        $10^6$ & 20 & 3100 & 3432 & 9.67\% \\
+        $10^6$ & 100 & 2568 & 3436 & 25.26\% \\ \hline
+        $10^7$ & 5 & 43268 & 44880 & 3.59\% \\
+        $10^7$ & 20 & 20780 & 22264 & 6.66\% \\
+        $10^7$ & 100 & 19076 & 21444 & 11.04\% \\
+    \hline
+	\end{tabular}
+\end{table}
+
+
 
 \todo{pojasniti tablicu \ref{tbl:results}} \\
 
