@@ -26,6 +26,22 @@
 \tableofcontents
 
 \chapter{Uvod}
+Komparativna genomika je područje bioinformatike u kojem se značajke genoma različitih organizama uspoređuju. U ovoj grani bioinformatike, uspoređuju se dijelovi ili pak cijeli genomi kako bi se pronašle i proučavale sličnosti i razlike. Glavni princip komparativne genomike je taj da su zajedničke značajke organizama zapisane u DNK te su one evolucijski sačuvane.
+
+Početak komparativne genomike je vrijeme kada su postali dostupni cijeli genomi dvaju organizama. To su genomi bakterija \textit{Haemophilus influenzae} i \textit{Mycoplasma genitalium} 1995. godine. Komparativna genomika je danas standardni alat u analizi svih novih slijedova genoma. Ovo područje bioinformatike je otkrilo velike sličnosti između nekih organizama kao što su ljudi i čimpanze. Također, pokazala je i velike razlike u sastavu gena u različitim evolucijskim lozama.
+
+Rastom sve većeg broja dostupnih genoma javlja se potreba za novim tehnologijama u usporedbi nizova. Kombiniranjem i slaganjem genoma pomoću tih tehnologija i usporedba dobivenih usko povezanih genoma biti će vrlo značajna u otkrivanju novih znanja, od otkrivanja gena i velikih genomskih reorganizacija za utvrđivanje razlika između srodnih vrsta do otkrivanja novih lijekova za do sada neizlječive bolesti.
+
+Jedan od alata bitnih za daljnji razvoj je izračunavanje maksimalnih točnih slaganja između dvaju nizova. Izračunavanje maksimalnih točnih slaganja između nizova bitno je za sljedeće: izračunavanje i rangiranje sličnosti genoma te utvrđivanja ključnih točaka u uspoređivanju genom-genom.
+
+Cilj ovog projektnog zadatka je proučiti \textit{essaMEM}, složeni algoritam i strukture podataka za efikasno računanje maksimalnih točnih slaganja za velike nizove te implementirati podskup funkcionalnosti koji su prožili autori u radu \cite{essa}.
+
+\chapter{essaMEM}
+
+\todo{oblikovati i sastaviti ovu cjelinu}
+
+složeni algoritam uz upotrebu povoljnih struktura podatak
+
 Maksimalno točno slaganje \engl{Maximal Exact Matches, MEM} je točno slaganje između dva niza koje se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između ta dva niza. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. To je osnovna struktura podataka koja omogućuje brzu analizu znakova. 
 
 Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski otisak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n-20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
