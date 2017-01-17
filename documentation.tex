@@ -193,7 +193,13 @@ Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child pol
 \end{table}
 
 \section{Potrošnja memorije}
-\todo{genomi su veliki, time i algoritmi teze ka zauzimanju puno memorije... zbog ogranicenosti memorije, potrebno je paziti da algoritmi budu efikasni u iskoristavanju memorije...}
+Traženje MEM-ova nad genomima može dovesti do vrlo značajnih otkrića. Kako je dostupan sve veći broj cijelovitih genoma, algoritmi rade nad vrlo velikim nizovima. Zbog toga je potrebno voditi računa o efikasnosti korištenja memorije. 
+
+Child polje je jedna od ključnih struktura podataka algoritma essaMEM i potrebno ju je konstruirati na efikasan način, odnosno da se ne troši više memorije no što je to zaista potrebno.
+
+Tablice \ref{tbl:memory-bacteria} i \ref{tbl:memory-bacteria} prikazuju utrošak memorije child polja. Stupac $mem_{impl}$  predstavlja utrošak memorije izvedene implementacije dok stupac $mem_{ref}$ predstavlja utrošak memorije referentnog rješenja. Stupac $mem_{razlika}$ predstavlja razliku utrošene memorije između izvedene implementacije i referentnog rješenja. Vrijednosti stupca $mem_{razlika}$ dobiveni su izrazom $(mem_{ref} - mem_{impl}) / mem_{ref} * 100\%$.
+
+Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-generated} može se vidjeti kako izvedena implementacija ima manji utrošak memorije od referentnog rješenja za gotovo sve primjere.
 
 \begin{table}[h]
 	\centering
@@ -240,10 +246,6 @@ Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child pol
 	\end{tabular}
 \end{table}
 
-
-
-\todo{pojasniti tablicu \ref{tbl:results} DANIEL} \\
-
 \section{Ovisnost resursa o parametrima}
 
 \begin{figure}[!h]
@@ -286,7 +288,7 @@ Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child pol
 \begin{sazetak}
   \todo{napisati... DANIEL}
 
-  \kljucnerijeci{MEM, enhanced sparse suffix array, child array}
+  \kljucnerijeci{MEM, enhanced sparse suffix array, child array, child array construction}
 \end{sazetak}
 
 \end{document}
