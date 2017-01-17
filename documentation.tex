@@ -34,25 +34,22 @@ Rastom sve većeg broja dostupnih genoma javlja se potreba za novim tehnologijam
 
 Jedan od alata bitnih za daljnji razvoj je izračunavanje maksimalnih točnih slaganja između dvaju nizova. Izračunavanje maksimalnih točnih slaganja između nizova bitno je za sljedeće: izračunavanje i rangiranje sličnosti genoma te utvrđivanja ključnih točaka u uspoređivanju genom-genom.
 
-Cilj ovog projektnog zadatka je proučiti \textit{essaMEM}, složeni algoritam i strukture podataka za efikasno računanje maksimalnih točnih slaganja za velike nizove te implementirati podskup funkcionalnosti koji su prožili autori u radu \cite{essa}.
+Cilj ovog projektnog zadatka je proučiti \textit{essaMEM}, složeni algoritam i strukture podataka za efikasno računanje maksimalnih točnih slaganja za velike nizove te implementirati podskup funkcionalnosti koje su prožili autori u radu \cite{essa}.
 
 \chapter{essaMEM}
 
-\todo{oblikovati i sastaviti ovu cjelinu}
+\textit{essaMEM} je vrlo složeni algoritam za pronalaženje maksimalnih točnih slaganja. Maksimalno točno slaganje \engl{Maximal Exact Matches, MEM} je niz koji predstavlja točno slaganje između dva niza koji se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između dva niza koja se uspoređuju. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. 
 
-složeni algoritam uz upotrebu povoljnih struktura podatak
-
-Maksimalno točno slaganje \engl{Maximal Exact Matches, MEM} je točno slaganje između dva niza koje se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između ta dva niza. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. To je osnovna struktura podataka koja omogućuje brzu analizu znakova. 
-
-Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski otisak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n-20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
+\section{Sufiksno stablo i sufiksno polje}
+Sufiksno stablo je osnovna struktura podataka koja omogućuje brzu analizu nizova. Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja \engl{suffix array, SA}. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski utrošak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n-20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
 
 Uobičajeno se koriste sufiksna stabla ili unaprijeđena sufiksna polja \engl{Enhanced Suffix Arrays, ESA} za pronalaženje MEM-ova. ESA se sastoji od četiri polja: sufiksnog polja, polja najvećih zajedničkih prefiksa \engl{Longest Common Prefix, LCP}, child polja i polja sufiksnih poveznica \engl{suffix link arrays} koja sadrže dijelove informacija iz sufiksnog stabla te zajedno dostižu potpunu ekspresivnost sufiksnih stabala. Dakle, svaki problem koji se može riješiti korištenjem sufiksnih stabala, može se riješiti i korištenjem ESA s istom asimptotskom složenošću.
 
-Khan \textit{et. al.} u \cite{ssa} savjetuje korištenje rijetkih sufiksnih polja \engl{Sparse Suffix Arrays, SSA}. Kod SSA, indeksira se svaki \textit{K}-ti sufiks. Parametar \textit{K} naziva se parametar rijetkosti, \textit{sparsness factor}. Njihov algoritam za pronalaženje MEM-ova koji se temelji na SSA pronalazi MEM-ove puno brže od prethodnih metoda te koristi manje memorije. Posljedično, uporabom SSA moguće je indeksirati znatno veće genome.
+Khan \textit{et. al.} u \cite{ssa} savjetuje korištenje rijetkih sufiksnih polja \engl{Sparse Suffix Arrays, SSA}. Kod SSA, indeksira se svaki \textit{K}-ti sufiks. Parametar \textit{K} naziva se parametar rijetkosti, \engl{sparsness factor}. Algoritam koji koriste autori u radu \cite{ssa} za pronalaženje MEM-ova temelji se na SSA i pronalazi MEM-ove puno brže od prethodnih metoda. Uz brže pronalaženje MEM-ova algoritam koristi i značajno manje memorije od prethodnih metoda. Posljedično, uporabom SSA moguće je indeksirati znatno veće genome.
 
-Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u \cite{ssa} implementiranjem rijetkih child polja za velike parametre rijetkosti. Dodatno, korištenjem sufiksnih poveznica \engl{suffix links} i child polja gradi se unaprijeđeno rijetko sufiksno polje \engl{Enhanced Sparse Suffix Array, ESSA} koje ima istu ekspresivnost kao i sufiksno stablo za podnizove veće od \textit{K}. Memorijski učinkoviti algoritmi za pronalaženje MEM-ova mogu se podijeliti u dvije kategorije: \textit{online} i \textit{index} metode. essaMEM pripada kategoriji indeksnih metoda algoritama za pronalaženje MEM-ova. Ova metoda uspoređuje niz $Q$ veličine $m$ niz s indeksnom strukturom izgrađenom nad referentnim nizom $S$ veličine $n$. Prednost ovog pristupa je ta što se konstruirana indeksna struktura može ponovno iskoristiti, odnosno za sljedeću usporedbu nizova nije potrebno ponovno indeksirati niz. 
+Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u \cite{ssa} implementiranjem rijetkih child polja za velike parametre rijetkosti. Dodatno, korištenjem sufiksnih poveznica \engl{suffix links} i child polja gradi se unaprijeđeno rijetko sufiksno polje \engl{Enhanced Sparse Suffix Array, ESSA} koje ima istu ekspresivnost kao i sufiksno stablo za podnizove veće od \textit{K}. Memorijski učinkoviti algoritmi za pronalaženje MEM-ova mogu se podijeliti u dvije kategorije: \textit{online} i \textit{index} metode. essaMEM pripada kategoriji indeksnih metoda algoritama za pronalaženje MEM-ova. Ova metoda uspoređuje niz $Q$ veličine $m$ s indeksnom strukturom izgrađenom nad referentnim nizom $S$ veličine $n$. Prednost ovog pristupa je ta što se konstruirana indeksna struktura može ponovno iskoristiti, odnosno za sljedeću usporedbu nizova nije potrebno ponovno indeksirati referentni niz. 
 
-Cilj ovog projektnog zadatka je izgraditi rijetko child polje.
+U sljedećim poglavljima opisan je postupak izgradnje child polja te su prikazani rezultati usporedbe između izvedene implementacije i referentne implementacije.
 
 \chapter{Child polje}
 MEM-ovi se pronalaze obilaskom sufiksnog stabla odozgo prema dolje. Koristeći SA i LCP polje ovaj problem moguće je riješiti u složenosti $O(m + log n)$. Ukoliko se SA proširi dodatnim child poljem problem je moguće riješiti u složenosti $O(m)$.
@@ -234,7 +231,7 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 
 
 
-\todo{pojasniti tablicu \ref{tbl:results}} \\
+\todo{pojasniti tablicu \ref{tbl:results} DANIEL} \\
 
 \begin{figure}[!h]
 	\centering
@@ -264,16 +261,16 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
   \caption{Ovisnost utrošene memorije o parametru $K$ ($N = 5 \cdot 10^6$)}
 \end{figure}
 
-\todo{komentirati grafove} \\
+\todo{komentirati grafove DANIEL} \\
 
 \chapter{Zaključak}
-\todo{napisati...}
+\todo{napisati... DANIEL}
 
 \bibliography{literature}
 \bibliographystyle{fer}
 
 \begin{sazetak}
-  \todo{napisati...}
+  \todo{napisati... DANIEL}
 
   \kljucnerijeci{MEM, enhanced sparse suffix array, child array}
 \end{sazetak}
