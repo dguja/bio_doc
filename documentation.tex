@@ -260,13 +260,14 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 \end{table}
 
 \section{Ovisnost resursa o parametrima}
-\todo{komentirati grafove DANIEL... u nastavku su prikazani ...} \\
+U nastavku su prikazani grafovi ovisnosti resursa o broju baza i o parametru rijetkosti $K$. Vrijeme izvršavanja i utrošena memorija su u linearnoj ovisnosti o broj baza što se vidi na slikama \ref{fig:time-base_number} i \ref{fig:memory-base_number}. \todo{Prokomentirati kroz rečenicu dvije slike \ref{fig:time-k} i \ref{fig:memory-k}}
 
 \begin{figure}[!h]
 	\centering
 	\def\svgwidth{.7\columnwidth}
 	\input{N-t.pdf_tex}
   \caption{Ovisnost vremena izvršavanja o broju baza ($K = 10$)}
+  \label{fig:time-base_number}
 \end{figure}
 
 \begin{figure}[!h]
@@ -274,6 +275,7 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 	\def\svgwidth{.7\columnwidth}
 	\input{N-mem.pdf_tex}
   \caption{Ovisnost utrošene memorije o broju baza ($K = 10$)}
+  \label{fig:memory-base_number}
 \end{figure}
 
 \begin{figure}[!h]
@@ -281,6 +283,7 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 	\def\svgwidth{.7\columnwidth}
 	\input{K-t.pdf_tex}
   \caption{Ovisnost vremena izvršavanja o parametru $K$ ($N = 5 \cdot 10^6$)}
+  \label{fig:time-k}
 \end{figure}
 
 \begin{figure}[!h]
@@ -288,6 +291,7 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 	\def\svgwidth{.7\columnwidth}
 	\input{K-mem.pdf_tex}
   \caption{Ovisnost utrošene memorije o parametru $K$ ($N = 5 \cdot 10^6$)}
+  \label{fig:memory-k}
 \end{figure}
 
 \chapter{Zaključak}
