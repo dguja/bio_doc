@@ -146,7 +146,9 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 \end{algorithm}
 
 \chapter{Rezultati}
-U ovom poglavlju predstavljeni su rezultati implementacije child polja. \todo{napisati nesto kao za potrebe testiranja odabrane su dvije velike datoteke koje sadrzavaju genome bakterija (je li to tocno uopce?) i generirani su vlastiti primjeri.. -kako se testiralo? koji program se koristio za mjerenje memorije i vremena, testovi su izvršeni na računalu i operacijskom sustavu... od kud su preuzete ove datoteke?}
+U ovom poglavlju predstavljeni su rezultati implementacije child polja. Testovi su izvršeni nad generiranim nizovima te nad sljedećim organizmima: \textit{Escherichia coli}, \textit{Helicobacter pylori}, \textit{Methylobacillus flagellatus}. 
+
+\todo{-kako se testiralo? koji program se koristio za mjerenje memorije i vremena, testovi su izvršeni na računalu (je li bitno spomenuti konfiguraciju) i operacijskom sustavu...}
 
 \section{Vrijeme izvođenja}
 Prilikom traženja MEM-ova potrebno je paziti na vrijeme izvođenja. Kako se MEM-ovi traže nad velikim nizovima, rješenje problema prirodno teži k većem vremenu izvođenja. Potrebno je optimirati sve korake algoritma, tako i izgradnju child polja, kako bi se ostvarilo što kraće izvođenja. 
@@ -204,7 +206,7 @@ Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child pol
 \end{table}
 
 \section{Potrošnja memorije}
-Traženje MEM-ova nad genomima može dovesti do vrlo značajnih otkrića. Kako je dostupan sve veći broj cijelovitih genoma, algoritmi rade nad vrlo velikim nizovima. Zbog toga je potrebno voditi računa o efikasnosti korištenja memorije. 
+Traženje MEM-ova nad genomima može dovesti do značajnih otkrića. Kako je dostupan sve veći broj cijelovitih genoma, algoritmi rade nad vrlo velikim nizovima. Zbog toga je potrebno voditi računa o efikasnosti korištenja memorije. 
 
 Child polje je jedna od ključnih struktura podataka algoritma essaMEM i potrebno ju je konstruirati na efikasan način, odnosno da se ne troši više memorije no što je to zaista potrebno.
 
@@ -293,11 +295,9 @@ Pronalaženje maksimalnih točnih slaganja je vrlo bitan alat u komparativnoj ge
 
 Sufiksna stabla su prva struktura koja je omogućila efikasno uspoređivanje nizova. Razvojem područja razvila su se sufiksna polja. Ona omogućuju stvaranje virtualnih sufiksnih stabala te donose poboljšanja u iskoristivosti resursa. Cijena toga je složenost izgradnje takve strukture.
 
-Napredak u razvoju sufiksnih polja omogućuje izgradnju novih efikasnijih algoritama za pronalazak najvećih točnih slaganja. essaMEM predstavlja poboljšanje dosadašnjih algoritama za pronalazak MEM-ova. To je vrlo složen postupak pogodan za pronalaženje MEM-ova nad velikim nizovima. 
+Napredak u razvoju sufiksnih polja omogućuje izgradnju efikasnijih algoritama za pronalazak najvećih točnih slaganja. essaMEM predstavlja poboljšanje dosadašnjih metoda. To je složen postupak pogodan za pronalaženje MEM-ova nad velikim nizovima. Također, zbog složenosti algoritma javlja se pitanje reproducibilnosti algoritma. \todo{možeš maknuti ovu rečenicu ako smatraš neprikladnom. meni se čini da je ovo sasvim uredu opažanje}
 
 U sklopu ovog projektnog zadatka implementiran je algoritam izgradnje child polja, jedne od ključnih struktura algoritma essaMEM. Implementirana inačica postiže vrlo slične rezultate kao i referentno rješenje. Vremensko izvođenje implementiranog algoritma izgradnje child polja je u većini slučajeva kraće od referentnog rješenja te je memorijski utrošak manji.
-
-Zbog složenosti algoritma essaMEM javlja se pitanje reproducibilnosti algoritma. 
 
 
 \bibliography{literature}
