@@ -136,10 +136,13 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 
 \chapter{Rezultati}
 
+
+\section{Vrijeme izvođenja}
+
 \begin{table}[h]
 	\centering
 	\caption{Usporedba vremena izvršavanja izvedene implementacije i referentnog rješenja za različite primjere i vrijednosti parametra $K$}
-	\label{tbl:results}
+	\label{tbl:time-bacteria}
 	
 	\begin{tabular}{lrrrrrr}
 		\hline
@@ -160,10 +163,34 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 	\end{tabular}
 \end{table}
 
+
+\begin{table}[h]
+	\centering
+	\caption{Usporedba vremena izvršavanja izvedene implementacije i referentnog rješenja za različite generirane primjere i različite vrijednosti parametra $K$}
+	\label{tbl:time-generated}
+	
+	\begin{tabular}{lrrrrr}
+		\hline
+        Broj baza & $K$ & $t_{impl}$ & $t_{ref}$ & $t_{razlika}$ \\ \hline
+        $10^5$ & 5 & 0.007086 & 0.014893 & 52.42\% \\
+        $10^5$ & 20 & 0.124813 & 0.127244 & 1.91\% \\
+        $10^5$ & 100 & 0.181825 & 0.15902 & -14.34\% \\ \hline
+        $10^6$ & 5 & 0.106828 & 0.141809 & 24.66\% \\
+        $10^6$ & 20 & 1.05831 & 1.04681 & -1.09\% \\
+        $10^6$ & 100 & 1.59274 & 1.59819 & 0.034\% \\ \hline
+        $10^7$ & 5 & 1.41559 & 1.56725 & 9.67\% \\
+        $10^7$ & 20 & 9.81479 & 9.53324 & -2.95\% \\
+        $10^7$ & 100 & 15.609 & 15.5091 & -0.064\% \\
+    \hline
+	\end{tabular}
+\end{table}
+
+\section{Potrošnja memorije}
+
 \begin{table}[h]
 	\centering
 	\caption{Usporedba utrošene memorije izvedene implementacije i referentnog rješenja za različite primjere i vrijednosti parametra $K$}
-	\label{tbl:results}
+	\label{tbl:memory-bacteria}
 	
 	\begin{tabular}{lrrrrrr}
 		\hline
@@ -186,29 +213,8 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 
 \begin{table}[h]
 	\centering
-	\caption{Usporedba vremena izvršavanja izvedene implementacije i referentnog rješenja za različite generirane primjere i različite vrijednosti parametra $K$}
-	\label{tbl:results}
-	
-	\begin{tabular}{lrrrrr}
-		\hline
-        Broj baza & $K$ & $t_{impl}$ & $t_{ref}$ & $t_{razlika}$ \\ \hline
-        $10^5$ & 5 & 0.007086 & 0.014893 & 52.42\% \\
-        $10^5$ & 20 & 0.124813 & 0.127244 & 1.91\% \\
-        $10^5$ & 100 & 0.181825 & 0.15902 & -14.34\% \\ \hline
-        $10^6$ & 5 & 0.106828 & 0.141809 & 24.66\% \\
-        $10^6$ & 20 & 1.05831 & 1.04681 & -1.09\% \\
-        $10^6$ & 100 & 1.59274 & 1.59819 & 0.034\% \\ \hline
-        $10^7$ & 5 & 1.41559 & 1.56725 & 9.67\% \\
-        $10^7$ & 20 & 9.81479 & 9.53324 & -2.95\% \\
-        $10^7$ & 100 & 15.609 & 15.5091 & -0.064\% \\
-    \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[h]
-	\centering
 	\caption{Usporedba utrošene memorije izvedene implementacije i referentnog rješenja za različite generirane primjere i različite vrijednosti parametra $K$}
-	\label{tbl:results}
+	\label{tbl:memory-generated}
 	
 	\begin{tabular}{lrrrrr}
 		\hline
