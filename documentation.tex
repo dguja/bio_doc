@@ -56,6 +56,7 @@ Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u
 U sljedećim poglavljima opisan je postupak izgradnje \textit{child} polja te su prikazani rezultati usporedbe između izvedene i referentne implementacije.
 
 \chapter{Child polje}
+\label{chapter:child_array}
 
 MEM-ovi se pronalaze obilaskom sufiksnog stabla odozgo prema dolje. Koristeći SA i LCP polje ovaj problem moguće je riješiti u složenosti $O(m + log n)$. Ukoliko se SA proširi dodatnim child poljem problem je moguće riješiti u složenosti $O(m)$.
 
@@ -96,7 +97,7 @@ Child polje nosi informaciju o odnosu roditelj-dijete u LCP intervalima. Za LCP 
 
 \chapter{Konstrukcija child polja}
 
-Algoritam \ref{alg:child-array} prikazuje izgradnju rijetkog child polja. Originalni algoritam dokazan je u \cite{esa}, a autori u \cite{essa} modificiraju ga za rad s rijetkim sufiksnim poljem. U poglavlju 2 pokazano je da je za izgradnju child polja potrebno imati samo informaciju sadržanu u LCP intervalima. Obzirom da uvođenje parametra rijetkosti $K$ ne utječe na definiciju LCP intervala, moguće je izgraditi rijetko child polje.
+Algoritam \ref{alg:child-array} prikazuje izgradnju rijetkog child polja. Originalni algoritam dokazan je u \cite{esa}, a autori u \cite{essa} modificiraju ga za rad s rijetkim sufiksnim poljem. U poglavlju \ref{chapter:child_array} pokazano je da je za izgradnju child polja potrebno imati samo informaciju sadržanu u LCP intervalima. Obzirom da uvođenje parametra rijetkosti $K$ ne utječe na definiciju LCP intervala, moguće je izgraditi rijetko child polje.
 
 U prvom linearnom prolazu LCP polja računaju se \textit{up} i \textit{down} vrijednosti. Trenutni indeks stavlja se na vrh stoga ukoliko je njegova LCP-vrijednost veća ili jednaka LCP-vrijednosti s vrha stoga. U suprotnom, elementi se skidaju sa stoga dok su njihove LCP-vrijednosti veće od LCP-vrijednosti trenutnog indeksa. Usporedbom LCP-vrijednosti trenutnog indeksa i indeksa s vrha stoga, \textit{up} i \textit{down} vrijednostima se pridjeljuju elemenati skinutih sa stoga tijekom prolaska. \todo{dodati opis čišćenja stoga}
 
