@@ -23,3 +23,6 @@
 *.synctex.gz
 *.pdf
 *.bak
+*.fls
+*.fdb_latexmk
+*.pdf_tex
