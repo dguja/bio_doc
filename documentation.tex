@@ -135,10 +135,17 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 \end{algorithm}
 
 \chapter{Rezultati}
-U ovom poglavlju predstavljeni su rezultati implementacije child polja. \todo{napisati nesto kao za potrebe testiranja odabrane su dvije velike datoteke koje sadrzavaju genome bakterija (je li to tocno uopce?) i generirani su vlastiti primjeri}
+U ovom poglavlju predstavljeni su rezultati implementacije child polja. \todo{napisati nesto kao za potrebe testiranja odabrane su dvije velike datoteke koje sadrzavaju genome bakterija (je li to tocno uopce?) i generirani su vlastiti primjeri.. -kako se testiralo? koji program se koristio za mjerenje memorije i vremena, testovi su izvršeni na računalu i operacijskom sustavu... od kud su preuzete ove datoteke?}
 
 \section{Vrijeme izvođenja}
-\todo{u bioinformatici gdje raste broj dostupnih genoma, oni su veliki potrebno je paziti na vrijeme izvodenja - gradnja efikasnih algoritama. algoritam treba optimirati u svih koracima. child array je optimiran... tablica ova i ona prikazuje ...}
+Prilikom traženja MEM-ova potrebno je paziti na vrijeme izvođenja. Kako se MEM-ovi traže nad velikim nizovima, rješenje problema prirodno teži k većem vremenu izvođenja. Potrebno je optimirati sve korake algoritma, tako i izgradnju child polja, kako bi se ostvarilo što kraće izvođenja. 
+
+Tablice \ref{tbl:time-bacteria} i \ref{tbl:time-generated} prikazuju vrijeme konstrukcije child polja. Stupac $t_{impl}$  predstavlja vrijeme izvođenja izvedene implementacije dok stupac $t_{ref}$ predstavlja vrijeme izvođenja referentnog rješenja. Stupac $t_{razlika}$ predstavlja razliku u vremenu izvođenja između izvedene implementacije i referentnog rješenja. Vrijednosti stupca $t_{razlika}$ dobiveni su izrazom $(t_{ref} - t_{impl}) / t_{ref} * 100\%$.
+
+Tablica \ref{tbl:time-bacteria} prikazuje usporedbu vremena izgradnje child polja nad postojećim genomima. Može se uočiti kako su vremena izvođenja izvedene implementacije i referentnog rješenja vrlo slična. Vrijeme izvođenja izvedenog rješenja je uglavnom manje od vremena izvođenja referentne implementacije za $K=5$ i $K=20$ dok za $K=100$ referentno rješenje ima kraće vrijeme izvođenja.
+
+Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child polja nad generiranim nizovima. Generirani nizovi su različitih broja baza. Vrijeme izvođenja izvedene implementacije i referentnog rješenja je vrlo slično te vrijede prethodni zaključci.
+ 
 \begin{table}[h]
 	\centering
 	\caption{Usporedba vremena izvršavanja izvedene implementacije i referentnog rješenja za različite primjere i vrijednosti parametra $K$}
@@ -236,6 +243,8 @@ U ovom poglavlju predstavljeni su rezultati implementacije child polja. \todo{na
 
 
 \todo{pojasniti tablicu \ref{tbl:results} DANIEL} \\
+
+\section{Ovisnost resursa o parametrima}
 
 \begin{figure}[!h]
 	\centering
