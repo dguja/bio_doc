@@ -247,7 +247,7 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 \end{table}
 
 \section{Ovisnost resursa o parametrima}
-\todo{komentirati grafove DANIEL} \\
+\todo{komentirati grafove DANIEL... u nastavku su prikazani ...} \\
 
 \begin{figure}[!h]
 	\centering
@@ -278,8 +278,16 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 \end{figure}
 
 \chapter{Zaključak}
-\todo{napisati... DANIEL}
-\todo{MEM je vrlo bitan alat u komparativnoj genomici jer omogucuje ... -sufiksna polja omogucuju stvaranje virtualnih sufiksnih stabala, ona su efikasnija od stabala, ali cijena toga je slozenost izgradnje... -napredak u realizaciji sufiksnih polja omogucuje izgradnju novih efikasnijih algoritama za pronalazak MEM... -essaMEM je predstavlja poboljsanje dosadasnjih algoritama, koristi slozen postupak pogodan za pronalazenje MEMova nad velikim nizovima ... -zbog svoje slozenosti javlja se pitanje reproducibilnosti... - implementirano rjesenje child polja postiže približno iste rezultate kao i referentno rjesenje odnosno u većini slucajeva i bolje ... - programsko rjesenje i dokumentacija dostupni su...}
+Pronalaženje maksimalnih točnih slaganja je vrlo bitan alat u komparativnoj genomici jer omogućuje izračunavanje i rangiranje sličnosti genoma te utvrđivanje ključnih točaka prilikom uspoređivanja genoma. Time se mogu pronaći sličnosti i razlike između organizama. 
+
+Sufiksna stabla su prva struktura koja je omogućila efikasno uspoređivanje nizova. Razvojem područja razvila su se sufiksna polja. Ona omogućuju stvaranje virtualnih sufiksnih stabala te donose poboljšanja u iskoristivosti resursa. Cijena toga je složenost izgradnje takve strukture.
+
+Napredak u razvoju sufiksnih polja omogućuje izgradnju novih efikasnijih algoritama za pronalazak najvećih točnih slaganja. essaMEM predstavlja poboljšanje dosadašnjih algoritama za pronalazak MEM-ova. To je vrlo složen postupak pogodan za pronalaženje MEM-ova nad velikim nizovima. 
+
+U sklopu ovog projektnog zadatka implementiran je algoritam izgradnje child polja, jedne od ključnih struktura algoritma essaMEM. Implementirana inačica postiže vrlo slične rezultate kao i referentno rješenje. Vremensko izvođenje implementiranog algoritma izgradnje child polja je u većini slučajeva kraće od referentnog rješenja te je memorijski utrošak manji.
+
+Zbog složenosti algoritma essaMEM javlja se pitanje reproducibilnosti algoritma. 
+
 
 \bibliography{literature}
 \bibliographystyle{fer}
