@@ -41,7 +41,7 @@ Cilj ovog projektnog zadatka je proučiti \textit{essaMEM}\cite{essa}, složeni 
 
 \section{Razvoj algoritma}
 
-Maksimalno točno slaganje \engl{Maximal exact match, MEM} je podniz oba niza koji predstavlja točno slaganje između njih koje se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između dva niza koja se uspoređuju. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. Sufiksno stablo je osnovna struktura podataka koja omogućuje brzu analizu nizova. Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja \engl{suffix array, SA}. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski utrošak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n-20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
+Maksimalno točno slaganje \engl{Maximal exact match, MEM} je podniz oba niza koji predstavlja točno slaganje između njih koje se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između dva niza koja se uspoređuju. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. Sufiksno stablo je osnovna struktura podataka koja omogućuje brzu analizu nizova. Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja \engl{suffix array, SA}. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski utrošak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n$ - $20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
 
 Uobičajeno se koriste sufiksna stabla ili unaprijeđena sufiksna polja \engl{Enhanced Suffix Arrays, ESA} za pronalaženje MEM-ova. ESA se sastoji od četiri polja: sufiksnog polja, polja najvećih zajedničkih prefiksa \engl{Longest Common Prefix, LCP}, child polja i polja sufiksnih poveznica \engl{suffix link arrays} koja sadrže dijelove informacija iz sufiksnog stabla te zajedno dostižu potpunu ekspresivnost sufiksnih stabala. Dakle, svaki problem koji se može riješiti korištenjem sufiksnih stabala, može se riješiti i korištenjem ESA s istom asimptotskom složenošću.
 
@@ -63,17 +63,20 @@ Dohvat djece unutarnjih čvorova konceptualnog sufiksnog stabla ostvarenog pomo�
 
 Child polje je duljine $n / K$, a svaki element u polju sadrži vrijednosti \textit{up}, \textit{down} i \textit{nextLIndex}. Te vrijednosti definirane su u nastavku:
 
-$childtab[i].up = min\{q \in [0..i-1] \mid lcptab[q] > lcptab[i]$ i $\forall k \in [q+1..i-1] : lcptab[k] \geq lcptab[q]\}$
+$childtab[i].up = min\{q \in [0..i-1] \mid lcptab[q] > lcptab[i]$ i \\ \strut\hfill 
+$\forall k \in [q+1..i-1] : lcptab[k] \geq lcptab[q]\}$
 
-$childtab[i].down = max\{q \in [i+1..n] \mid lcptab[q] > lcptab[i]$ i $\forall k \in [i+1..q-1] : lcptab[k] > lcptab[q]\}$
+$childtab[i].down = max\{q \in [i+1..n] \mid lcptab[q] > lcptab[i]$ i \\ \strut\hfill
+$\forall k \in [i+1..q-1] : lcptab[k] > lcptab[q]\}$
 
-$childtab[i].nextLIndex = min\{q \in [i+1..n] \mid lcptab[q] = lcptab[i]$ i $\forall k \in [i+1..q-1] : lcptab[k] > lcptab[i]\}$
+$childtab[i].nextLIndex = min\{q \in [i+1..n] \mid lcptab[q] = lcptab[i]$ i \\ \strut\hfill
+$\forall k \in [i+1..q-1] : lcptab[k] > lcptab[i]\}$
 
-Tablica \ref{tbl:example} prikazuje vrijednosti sufiks i LCP polja te sve tri vrijednosti child polja na primjeru \textit{S = mississippi}.
+Tablica \ref{tbl:example} prikazuje vrijednosti sufiks i LCP polja te sve tri vrijednosti child polja na primjeru \textit{mississippi} uz $K = 2$.
 
 \begin{table}[h]
 	\centering
-	\caption{SA  niza \textit{S = mississippi} proširen s LCP i child tablicom.}
+  \caption{SA  niza S = \texttt{mississippi} proširen LCP i child tablicom ($K = 2$).}
 	\label{tbl:example}
 	
 	\begin{tabular}{ccccccl}
