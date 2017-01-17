@@ -37,7 +37,8 @@ Jedan od alata bitnih za daljnji razvoj je izračunavanje maksimalnih točnih sl
 
 Cilj ovog projektnog zadatka je proučiti \textit{essaMEM}\cite{essa}, složeni algoritam za efikasno računanje maksimalnih točnih slaganja za velike nizove te implementirati podskup funkcionalnosti koje su autori objasnili u radu, konkretno kostrukciju \textit{child} polja.
 
-\chapter{Pronalazak maksimalnih točnih slaganja}
+\chapter{Pronalazak maksimalnih točnih slaganja} 
+\label{ch:mems}
 
 \section{Razvoj algoritma}
 
@@ -56,7 +57,7 @@ Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u
 U sljedećim poglavljima opisan je postupak izgradnje \textit{child} polja te su prikazani rezultati usporedbe između izvedene i referentne implementacije.
 
 \chapter{Child polje}
-\label{chapter:child_array}
+\label{ch:child}
 
 MEM-ovi se pronalaze obilaskom sufiksnog stabla odozgo prema dolje. Koristeći SA i LCP polje ovaj problem moguće je riješiti u složenosti $O(m + log n)$. Ukoliko se SA proširi dodatnim child poljem problem je moguće riješiti u složenosti $O(m)$.
 
@@ -97,7 +98,7 @@ Child polje nosi informaciju o odnosu roditelj-dijete u LCP intervalima. Za LCP 
 
 \chapter{Konstrukcija child polja}
 
-Algoritam \ref{alg:child-array} prikazuje izgradnju rijetkog child polja. Originalni algoritam dokazan je u \cite{esa}, a autori u \cite{essa} modificiraju ga za rad s rijetkim sufiksnim poljem. U poglavlju \ref{chapter:child_array} pokazano je da je za izgradnju child polja potrebno imati samo informaciju sadržanu u LCP intervalima. Obzirom da uvođenje parametra rijetkosti $K$ ne utječe na definiciju LCP intervala, moguće je izgraditi rijetko child polje.
+Algoritam \ref{alg:child-array} prikazuje izgradnju rijetkog child polja. Originalni algoritam dokazan je u \cite{esa}, a autori u \cite{essa} modificiraju ga za rad s rijetkim sufiksnim poljem. Kao što je rečeno u poglavlju \ref{ch:child}, za izgradnju child polja potrebno je imati samo informaciju sadržanu u LCP intervalima. Obzirom da uvođenje parametra rijetkosti $K$ ne utječe na definiciju LCP intervala, moguće je izgraditi rijetko child polje.
 
 U prvom linearnom prolazu LCP polja računaju se \textit{up} i \textit{down} vrijednosti. Trenutni indeks stavlja se na vrh stoga ukoliko je njegova LCP-vrijednost veća ili jednaka LCP-vrijednosti s vrha stoga. U suprotnom, elementi se skidaju sa stoga dok su njihove LCP-vrijednosti veće od LCP-vrijednosti trenutnog indeksa. Usporedbom LCP-vrijednosti trenutnog indeksa i indeksa s vrha stoga, \textit{up} i \textit{down} vrijednostima se pridjeljuju elemenati skinutih sa stoga tijekom prolaska. \todo{dodati opis čišćenja stoga}
 
@@ -147,19 +148,17 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 \end{algorithm}
 
 \chapter{Rezultati}
-U ovom poglavlju predstavljeni su rezultati implementacije child polja. Testovi su izvršeni nad generiranim nizovima te nad sljedećim organizmima: \textit{Escherichia coli}, \textit{Helicobacter pylori}, \textit{Methylobacillus flagellatus}. 
+U ovom poglavlju predstavljeni su rezultati implementacije child polja. Testovi su izvršeni nad generiranim nizovima te nad genomima sljedećih organizama: \textit{Escherichia coli}, \textit{Helicobacter pylori}, \textit{Methylobacillus flagellatus}. 
 
 \todo{-kako se testiralo? koji program se koristio za mjerenje memorije i vremena, testovi su izvršeni na računalu (je li bitno spomenuti konfiguraciju) i operacijskom sustavu...}
 
 \section{Vrijeme izvođenja}
 Prilikom traženja MEM-ova potrebno je paziti na vrijeme izvođenja. Kako se MEM-ovi traže nad velikim nizovima, rješenje problema prirodno teži k većem vremenu izvođenja. Potrebno je optimirati sve korake algoritma, tako i izgradnju child polja, kako bi se ostvarilo što kraće izvođenja. 
 
-Tablice \ref{tbl:time-bacteria} i \ref{tbl:time-generated} prikazuju vrijeme konstrukcije child polja. Stupac $t_{impl}$  predstavlja vrijeme izvođenja izvedene implementacije dok stupac $t_{ref}$ predstavlja vrijeme izvođenja referentnog rješenja. Stupac $t_{razlika}$ predstavlja razliku u vremenu izvođenja između izvedene implementacije i referentnog rješenja. Vrijednosti stupca $t_{razlika}$ dobiveni su izrazom $(t_{ref} - t_{impl}) / t_{ref} * 100\%$.
+Tablice \ref{tbl:time-bacteria} i \ref{tbl:time-generated} prikazuju vrijeme konstrukcije child polja. Stupac $t_{impl}$  predstavlja vrijeme izvođenja izvedene implementacije dok stupac $t_{ref}$ predstavlja vrijeme izvođenja referentnog rješenja. Stupac $t_{razlika}$ predstavlja razliku u vremenu izvođenja između izvedene implementacije i referentnog rješenja. Vrijednosti stupca $t_{razlika}$ dobiveni su izrazom $100\% \cdot \frac{t_{ref} - t_{impl}}{t_{ref}}$.
 
-Tablica \ref{tbl:time-bacteria} prikazuje usporedbu vremena izgradnje child polja nad postojećim genomima. Može se uočiti kako su vremena izvođenja izvedene implementacije i referentnog rješenja vrlo slična. Vrijeme izvođenja izvedenog rješenja je uglavnom manje od vremena izvođenja referentne implementacije za $K=5$ i $K=20$ dok za $K=100$ referentno rješenje ima kraće vrijeme izvođenja.
+Tablica \ref{tbl:time-bacteria} prikazuje usporedbu vremena izgradnje child polja nad postojećim genomima. Može se uočiti kako su vremena izvođenja izvedene implementacije i referentnog rješenja vrlo slična. 
 
-Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child polja nad generiranim nizovima. Generirani nizovi su različitih broja baza. Vrijeme izvođenja izvedene implementacije i referentnog rješenja je vrlo slično te vrijede prethodni zaključci.
- 
 \begin{table}[h]
 	\centering
 	\caption{Usporedba vremena izvršavanja izvedene implementacije i referentnog rješenja za različite primjere i vrijednosti parametra $K$}
@@ -184,6 +183,7 @@ Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child pol
 	\end{tabular}
 \end{table}
 
+Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child polja nad generiranim nizovima. Generirani nizovi imaju različite brojeve baza od $10^5$ do $10^7$. Vrijeme izvođenja izvedene implementacije i referentnog rješenja vrlo je slično te vrijede prethodni zaključci.
 
 \begin{table}[h]
 	\centering
@@ -211,7 +211,7 @@ Traženje MEM-ova nad genomima može dovesti do značajnih otkrića. Kako je dos
 
 Child polje je jedna od ključnih struktura podataka algoritma essaMEM i potrebno ju je konstruirati na efikasan način, odnosno da se ne troši više memorije no što je to zaista potrebno.
 
-Tablice \ref{tbl:memory-bacteria} i \ref{tbl:memory-bacteria} prikazuju utrošak memorije child polja. Stupac $mem_{impl}$  predstavlja utrošak memorije izvedene implementacije dok stupac $mem_{ref}$ predstavlja utrošak memorije referentnog rješenja. Stupac $mem_{razlika}$ predstavlja razliku utrošene memorije između izvedene implementacije i referentnog rješenja. Vrijednosti stupca $mem_{razlika}$ dobiveni su izrazom $(mem_{ref} - mem_{impl}) / mem_{ref} * 100\%$.
+Tablice \ref{tbl:memory-bacteria} i \ref{tbl:memory-generated} prikazuju utrošak memorije child polja. Stupac $mem_{impl}$  predstavlja utrošak memorije izvedene implementacije dok stupac $mem_{ref}$ predstavlja utrošak memorije referentnog rješenja. Stupac $mem_{razlika}$ predstavlja razliku utrošene memorije između izvedene implementacije i referentnog rješenja. Vrijednosti stupca $mem_{razlika}$ dobiveni su izrazom $100\% \cdot \frac{mem_{ref} - mem_{impl}}{mem_{ref}}$.
 
 Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-generated} može se vidjeti kako izvedena implementacija ima manji utrošak memorije od referentnog rješenja za gotovo sve primjere.
 
