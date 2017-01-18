@@ -37,10 +37,15 @@ Jedan od alata bitnih za daljnji razvoj je izračunavanje maksimalnih točnih sl
 
 Cilj ovog projektnog zadatka je proučiti \textit{essaMEM}\cite{essa}, složeni algoritam za efikasno računanje maksimalnih točnih slaganja za velike nizove te implementirati podskup funkcionalnosti koje su autori objasnili u radu, konkretno kostrukciju \textit{child} polja.
 
+U idućem je poglavlju dan kratki pregled \textit{essaMEM} algoritma. U poglavlju \ref{ch:child} opisano je \textit{child} polje i njegova konstrkcija. U poglavlju \ref{ch:results} opisan je način vrednovanja rješenja, prikazani su rezultati izvršavanja te usporedba s referentim rješenjem. Konačno, u poglavlju \ref{ch:conclusion} donesen je zaključak rada.
+
 \chapter{Pronalazak maksimalnih točnih slaganja} 
 \label{ch:mems}
 
+U idućem odjeljku ovog poglavlja opisan je razvoj ideje o pronalasku maksimalnih točnih slaganja i postanak essaMEM algoritma. U odjeklju \ref{sec:essamem} ukratko je opisan sam algoritam.
+
 \section{Razvoj algoritma}
+\label{sec:development}
 
 Maksimalno točno slaganje \engl{Maximal exact match, MEM} je podniz oba niza koji predstavlja točno slaganje između njih koje se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između dva niza koja se uspoređuju. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. Sufiksno stablo je osnovna struktura podataka koja omogućuje brzu analizu nizova. Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja \engl{suffix array, SA}. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski utrošak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n$ - $20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
 
@@ -51,6 +56,7 @@ Khan \textit{et. al.} u \cite{ssa} savjetuje korištenje rijetkih sufiksnih polj
 Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u \cite{ssa} implementiranjem rijetkih child polja za velike parametre rijetkosti. Dodatno, korištenjem sufiksnih poveznica \engl{suffix links} i child polja gradi se unaprijeđeno rijetko sufiksno polje \engl{Enhanced Sparse Suffix Array, ESSA} koje ima istu ekspresivnost kao i sufiksno stablo za podnizove veće od \textit{K}. Memorijski učinkoviti algoritmi za pronalaženje MEM-ova mogu se podijeliti u dvije kategorije: \textit{online} i \textit{index} metode. essaMEM pripada kategoriji indeksnih metoda algoritama za pronalaženje MEM-ova. Ova metoda uspoređuje niz $Q$ veličine $m$ s indeksnom strukturom izgrađenom nad referentnim nizom $S$ veličine $n$. Prednost ovog pristupa je ta što se konstruirana indeksna struktura može ponovno iskoristiti, odnosno za sljedeću usporedbu nizova nije potrebno ponovno indeksirati referentni niz. 
 
 \section{essaMEM algoritam}
+\label{sec:essamem}
 
 essaMEM algoritma sastoji se od nekoliko odvojenih koraka koji se redu izvršavaju na sljedeći način. Prvo se konstruira SA na način da se pozove \textit{radix sort} za sortiranje sufiksa prema njihovom prefiksu određene duljine, a zatim se pozove funkcija za sortiranje sufiksa \texttt{qsufsort} implementacije, koja dovršava sortiranje. Slijedi konstrukcija inverznog sufiksnog polja \engl{Inverse suffix array, ISA} koje se direktno konstruira iz SA. Nakon toga konstruira se LCP polje upotrebom algoritma iz \cite{lcp}. Za njegovu konstrukciju potrebni su SA i ISA. Nakon ovih predkoraka može se konstruirati child polje. Za to je potrebno samo LCP polje.
 
@@ -59,7 +65,10 @@ Navedene strukture su dovolje za ispravan i brz rad algoritma. U ostatku origina
 \chapter{Child polje}
 \label{ch:child}
 
+U ovom poglavlju opisan je child niz, glavna značajka ovog algoritma. U idućem odjeljku donesen je kratak uvod. U odjeljku \ref{sec:construction} ukratko je opisan način konstrukcije child niza.
+
 \section{Uvod i definicije}
+\label{sec:definitions}
 
 MEM-ovi se pronalaze obilaskom sufiksnog stabla odozgo prema dolje. Koristeći SA i LCP polje ovaj problem moguće je riješiti u složenosti $O(m + log n)$. Ukoliko se SA proširi dodatnim child poljem problem je moguće riješiti u složenosti $O(m)$.
 
@@ -121,8 +130,9 @@ Tablice \ref{tbl:example-full} i \ref{tbl:example} prikazuju vrijednosti sufiksn
 Child polje nosi informaciju o odnosu roditelj-dijete u LCP intervalima. Za LCP interval [i..j] s \textit{l}-indeksima $i_1 < i _2 <$ ... $< i_k$, $childtab[i].down$ ili $childtab[j+1].up$ vrijednost koristi se za dobivanje prvog \textit{l}-indeksa $i_1$. Ostali \textit{l}-indeksi $i _2$, ..., $i_k$ dobivaju se redom iz $childtab[i_1].nextLIndex$, ..., $childtab[i_{k-1}].nextLIndex$. U \cite{esa} je dokazano da su sada child intervali LCP intervala [i..j] redom [$i..i_1-1$], [$i_1..i_2-1$], ..., [$i_k..j$].
 
 \section{Konstrukcija child polja}
+\label{sec:construction}
 
-Algoritam \ref{alg:child-array} prikazuje izgradnju rijetkog child polja. Originalni algoritam dokazan je u \cite{esa}, a autori u \cite{essa} modificiraju ga za rad s rijetkim sufiksnim poljem. Kao što je rečeno u poglavlju \ref{ch:child}, za izgradnju child polja potrebno je imati samo informaciju sadržanu u LCP intervalima. Obzirom da uvođenje parametra rijetkosti $K$ ne utječe na definiciju LCP intervala, moguće je izgraditi rijetko child polje.
+Algoritam \ref{alg:child-array} prikazuje izgradnju rijetkog child polja. Originalni algoritam dokazan je u \cite{esa}, a autori u \cite{essa} modificiraju ga za rad s rijetkim sufiksnim poljem. Kao što je rečeno u odjeklju \ref{sec:essamem}, za izgradnju child polja potrebno je imati samo informaciju sadržanu u LCP intervalima. Obzirom da uvođenje parametra rijetkosti $K$ ne utječe na definiciju LCP intervala, moguće je izgraditi rijetko child polje.
 
 U prvom linearnom prolazu LCP polja računaju se \textit{up} i \textit{down} vrijednosti. Trenutni indeks stavlja se na vrh stoga ukoliko je njegova LCP-vrijednost veća ili jednaka LCP-vrijednosti s vrha stoga. U suprotnom, elementi se skidaju sa stoga dok su njihove LCP-vrijednosti veće od LCP-vrijednosti trenutnog indeksa. Usporedbom LCP-vrijednosti trenutnog indeksa i indeksa s vrha stoga, \textit{up} i \textit{down} vrijednostima se pridjeljuju elemenati skinutih sa stoga tijekom prolaska. \todo{dodati opis čišćenja stoga}
 
@@ -172,10 +182,14 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 \end{algorithm}
 
 \chapter{Rezultati}
+\label{ch:results}
 
 U ovom poglavlju predstavljeni su rezultati implementacije child polja. Testovi su izvršeni nad generiranim nizovima te nad stvarnim genomima. Implementacija razvijena u sklopu ovog projekta nalazi se na repozitoriju \url{https://github.com/arazum/bio}, a referentno rješenje nalazi se ovdje \url{https://github.com/readmapping/essaMEM}. 
 
+U idućem odjeljku opisan je način vrednovanja rješenja te generiranja i dohvaćanja primera. U odjeljku \ref{sec:time} prikazana je usporedba vremena izvođenja ovog i referentnog rješenja. U odjelju \ref{sec:mem} prikazana je usporedba utroška memorije. U odjeljku \ref{sec:graph} prikazane su ovisnosti vremena izvođenja i utroška memorije o broju baza i parametru $K$.
+
 \section{Vrednovanje rješenja}
+\label{sec:eval}
 
 U svrhu usporedivosti, referentno rješenje modificirano je na način da je nakon konstrukcije child niza isti ispisan i izvršavanje programa je prekinuto. Ovako je postignuto da referentno rješenje izvrši isti dio cjelokupnog algoritma kao i rješenje razvijeno u radu kako bi se vrijeme izvršavanja i količina utrošene memorije mogli ispravno usporediti. U rješenju u radu je također na poslijetku ispisan child niz. 
 
@@ -184,6 +198,7 @@ Za vrednovanje rješenja napravljen je odvojeni program. Program za svaki test p
 Rješenja su vrednovana nad primjerima u \textit{FASTA} formatu s brojem baza od $10^5$ do $10^7$ uz različite vrijednosti parametra $K$. Za generiranje primjera korišten je jednostavi odvojeni program. Korišteni stvarni primjeri preuzeti su s web lokacije \url{http://bacteria.ensembl.org/}, a sadrže genome organizama: \textit{Escherichia coli}, \textit{Helicobacter pylori}, \textit{Methylobacillus flagellatus}.
 
 \section{Vrijeme izvođenja}
+\label{sec:time}
 
 Prilikom traženja MEM-ova potrebno je paziti na vrijeme izvođenja. Kako se MEM-ovi traže nad velikim nizovima, rješenje problema prirodno teži k većem vremenu izvođenja. Potrebno je optimirati sve korake algoritma, tako i izgradnju child polja, kako bi se ostvarilo što kraće izvođenja. 
 
@@ -239,6 +254,8 @@ Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child pol
 \end{table}
 
 \section{Potrošnja memorije}
+\label{sec:mem}
+
 Traženje MEM-ova nad genomima može dovesti do značajnih otkrića. Kako je dostupan sve veći broj cijelovitih genoma, algoritmi rade nad vrlo velikim nizovima. Zbog toga je potrebno voditi računa o efikasnosti korištenja memorije. 
 
 Child polje je jedna od ključnih struktura podataka algoritma essaMEM i potrebno ju je konstruirati na efikasan način, odnosno da se ne troši više memorije no što je to zaista potrebno.
@@ -293,6 +310,7 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 \end{table}
 
 \section{Ovisnost utroška resursa o parametrima}
+\label{sec:graph}
 
 U nastavku su prikazani grafovi ovisnosti utroška resursa o broju baza $N$ i o parametru rijetkosti $K$. Na svakom grafu prikazane su tri krivulje: \textit{essa} -- utrošak cjelokupnog rješenja,, \textit{ssa} -- utrošak dijela rješenja do konstrukcije child polja te \textit{child} -- utrošak konsturkcije child polja. Kako se \textit{ssa} dio rješenja nalazi na početku, u izvršavanju ga je moguće izdvojiti i vršiti mjerenja samo za njega. \textit{child} dio se onda može dobiti oduzimanjem \textit{ssa} dijela od \textit{essa}. Na ovaj način dobivamo približan utrošak resursa potrebnih za konstrukciju child niza.
 
@@ -333,6 +351,8 @@ Na slikama \ref{fig:time-k} i \ref{fig:memory-k} vrijednost \textit{child} krivu
 \end{figure}
 
 \chapter{Zaključak}
+\label{ch:conclusion}
+
 Pronalaženje maksimalnih točnih slaganja je vrlo bitan alat u komparativnoj genomici jer omogućuje izračunavanje i rangiranje sličnosti genoma te utvrđivanje ključnih točaka prilikom uspoređivanja genoma. Time se mogu pronaći sličnosti i razlike između organizama. 
 
 Sufiksna stabla su prva struktura koja je omogućila efikasno uspoređivanje nizova. Razvojem područja razvila su se sufiksna polja. Ona omogućuju stvaranje virtualnih sufiksnih stabala te donose poboljšanja u iskoristivosti resursa. Cijena toga je složenost izgradnje takve strukture.
