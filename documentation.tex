@@ -148,11 +148,19 @@ U drugom linearnom prolazu LCP polja računaju se \textit{nextLIndex} vrijednost
 \end{algorithm}
 
 \chapter{Rezultati}
-U ovom poglavlju predstavljeni su rezultati implementacije child polja. Testovi su izvršeni nad generiranim nizovima te nad genomima sljedećih organizama: \textit{Escherichia coli}, \textit{Helicobacter pylori}, \textit{Methylobacillus flagellatus}. 
 
-\todo{-kako se testiralo? koji program se koristio za mjerenje memorije i vremena, testovi su izvršeni na računalu (je li bitno spomenuti konfiguraciju) i operacijskom sustavu...}
+U ovom poglavlju predstavljeni su rezultati implementacije child polja. Testovi su izvršeni nad generiranim nizovima te nad stvarnim genomima. Implementacija razvijena u sklopu ovog projekta nalazi se na repozitoriju \url{https://github.com/arazum/bio}, a referentno rješenje nalazi se ovdje \url{https://github.com/readmapping/essaMEM}. 
+
+\section{Vrednovanje rješenja}
+
+U svrhu usporedivosti, referentno rješenje modificirano je na način da je nakon konstrukcije child niza isti ispisan i izvršavanje programa je prekinuto. Ovako je postignuto da referentno rješenje izvrši isti dio cjelokupnog algoritma kao i rješenje razvijeno u radu kako bi se vrijeme izvršavanja i količina utrošene memorije mogli ispravno usporediti. U rješenju u radu je također na poslijetku ispisan child niz. 
+
+Za vrednovanje rješenja napravljen je odvojeni program. Program za svaki test primjer iz zadanog skupa primjera pokreće razvijeno rješenje te referentno rješenje i uspoređuje njihove ispise. U slučaju ne poklapanja, program ispisuje grešku. Uz usporedbu rezultata, program prikazuje vrijeme izvršavanja rješenja i utrošenu memoriju te prikazuje poboljšanje istih u odnosu na referentno rješenje. Za mjerenje vremena izvršavanja i utrošene memorije korišten je program \texttt{cgmemtime}.
+
+Rješenja su vrednovana nad primjerima u \textit{FASTA} formatu s brojem baza od $10^5$ do $10^7$ uz različite vrijednosti parametra $K$. Za generiranje primjera korišten je jednostavi odvojeni program. Korišteni stvarni primjeri preuzeti su s web lokacije \url{http://bacteria.ensembl.org/}, a sadrže genome organizama: \textit{Escherichia coli}, \textit{Helicobacter pylori}, \textit{Methylobacillus flagellatus}.
 
 \section{Vrijeme izvođenja}
+
 Prilikom traženja MEM-ova potrebno je paziti na vrijeme izvođenja. Kako se MEM-ovi traže nad velikim nizovima, rješenje problema prirodno teži k većem vremenu izvođenja. Potrebno je optimirati sve korake algoritma, tako i izgradnju child polja, kako bi se ostvarilo što kraće izvođenja. 
 
 Tablice \ref{tbl:time-bacteria} i \ref{tbl:time-generated} prikazuju vrijeme konstrukcije child polja. Stupac $t_{impl}$  predstavlja vrijeme izvođenja izvedene implementacije dok stupac $t_{ref}$ predstavlja vrijeme izvođenja referentnog rješenja. Stupac $t_{razlika}$ predstavlja razliku u vremenu izvođenja između izvedene implementacije i referentnog rješenja. Vrijednosti stupca $t_{razlika}$ dobiveni su izrazom $100\% \cdot \frac{t_{ref} - t_{impl}}{t_{ref}}$.
@@ -183,7 +191,7 @@ Tablica \ref{tbl:time-bacteria} prikazuje usporedbu vremena izgradnje child polj
 	\end{tabular}
 \end{table}
 
-Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child polja nad generiranim nizovima. Generirani nizovi imaju različite brojeve baza od $10^5$ do $10^7$. Vrijeme izvođenja izvedene implementacije i referentnog rješenja vrlo je slično te vrijede prethodni zaključci.
+Tablica \ref{tbl:time-generated} prikazuje usporedbu vremena izgradnje child polja nad generiranim nizovima. Vrijeme izvođenja izvedene implementacije i referentnog rješenja vrlo je slično te vrijede prethodni zaključci.
 
 \begin{table}[h]
 	\centering
@@ -260,7 +268,7 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 	\end{tabular}
 \end{table}
 
-\section{Ovisnost resursa o parametrima}
+\section{Ovisnost utroška resursa o parametrima}
 U nastavku su prikazani grafovi ovisnosti resursa o broju baza i o parametru rijetkosti $K$. Vrijeme izvršavanja i utrošena memorija su u linearnoj ovisnosti o broj baza što se vidi na slikama \ref{fig:time-base_number} i \ref{fig:memory-base_number}. \todo{Prokomentirati kroz rečenicu dvije slike \ref{fig:time-k} i \ref{fig:memory-k}}
 
 \begin{figure}[!h]
