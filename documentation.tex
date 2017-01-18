@@ -74,7 +74,30 @@ $\forall k \in [i+1..q-1] : lcptab[k] > lcptab[q]\}$
 $childtab[i].nextLIndex = min\{q \in [i+1..n] \mid lcptab[q] = lcptab[i]$ i \\ \strut\hfill
 $\forall k \in [i+1..q-1] : lcptab[k] > lcptab[i]\}$
 
-Tablica \ref{tbl:example} prikazuje vrijednosti sufiks i LCP polja te sve tri vrijednosti child polja na primjeru \textit{mississippi} uz $K = 2$.
+Tablice \ref{tbl:example-full} i \ref{tbl:example} prikazuju vrijednosti sufiksnog i LCP polja te sve tri vrijednosti child polja na primjeru \textit{mississippi} za vrijednosti parametra $K = 1$ odnosno $K = 2$.
+
+\begin{table}[h]
+	\centering
+  \caption{SA  niza S = \texttt{mississippi} proširen LCP i child tablicom ($K = 1$).}
+	\label{tbl:example-full}
+	
+	\begin{tabular}{ccccccl}
+		\hline
+    \texttt{i} & \texttt{sa[i]} & \texttt{lcp[i]} & \texttt{up[i]} & \texttt{down[i]} & \texttt{nextLIndex[i]} & \texttt{s[sa[i]]} \\ \hline
+     0 & 11 &  0 &    &    &  1 & \texttt{\$} \\
+     1 & 10 &  0 &    &  2 &  5 & \texttt{i\$} \\
+     2 &  7 &  1 &    &    &  3 & \texttt{ippi\$} \\
+     3 &  4 &  1 &    &  4 &    & \texttt{issippi\$} \\
+     4 &  1 &  4 &    &    &    & \texttt{ississippi\$} \\
+     5 &  0 &  0 &  2 &    &  6 & \texttt{mississippi\$} \\
+     6 &  9 &  0 &    &  7 &  8 & \texttt{pi\$} \\
+     7 &  8 &  1 &    &    &    & \texttt{ppi\$} \\
+     8 &  6 &  0 &  7 & 10 &    & \texttt{sippi\$} \\
+     9 &  3 &  2 &    &    &    & \texttt{sissippi\$} \\
+    10 &  5 &  1 &  9 & 11 &    & \texttt{ssippi\$} \\
+    11 &  2 &  3 &    &    &    & \texttt{ssissippi\$} \\ \hline
+	\end{tabular}
+\end{table}
 
 \begin{table}[h]
 	\centering
@@ -92,7 +115,6 @@ Tablica \ref{tbl:example} prikazuje vrijednosti sufiks i LCP polja te sve tri vr
     5 &  2 &  1 &    &    &    & \texttt{ssissippi\$}   \\ \hline
 	\end{tabular}
 \end{table}
-
 
 Child polje nosi informaciju o odnosu roditelj-dijete u LCP intervalima. Za LCP interval [i..j] s \textit{l}-indeksima $i_1 < i _2 <$ ... $< i_k$, $childtab[i].down$ ili $childtab[j+1].up$ vrijednost koristi se za dobivanje prvog \textit{l}-indeksa $i_1$. Ostali \textit{l}-indeksi $i _2$, ..., $i_k$ dobivaju se redom iz $childtab[i_1].nextLIndex$, ..., $childtab[i_{k-1}].nextLIndex$. U \cite{esa} je dokazano da su sada child intervali LCP intervala [i..j] redom [$i..i_1-1$], [$i_1..i_2-1$], ..., [$i_k..j$].
 
