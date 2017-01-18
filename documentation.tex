@@ -37,7 +37,7 @@ Jedan od alata bitnih za daljnji razvoj je izračunavanje maksimalnih točnih sl
 
 Cilj ovog projektnog zadatka je proučiti \textit{essaMEM}\cite{essa}, složeni algoritam za efikasno računanje maksimalnih točnih slaganja za velike nizove te implementirati podskup funkcionalnosti koje su autori objasnili u radu, konkretno kostrukciju \textit{child} polja.
 
-U idućem je poglavlju dan kratki pregled \textit{essaMEM} algoritma. U poglavlju \ref{ch:child} opisano je \textit{child} polje i njegova konstrkcija. U poglavlju \ref{ch:results} opisan je način vrednovanja rješenja, prikazani su rezultati izvršavanja te usporedba s referentim rješenjem. Konačno, u poglavlju \ref{ch:conclusion} donesen je zaključak rada.
+U idućem poglavlju dan je kratki pregled \textit{essaMEM} algoritma. U poglavlju \ref{ch:child} opisano je \textit{child} polje i njegova konstrkcija. U poglavlju \ref{ch:results} opisan je način vrednovanja rješenja, prikazani su rezultati izvršavanja te usporedba s referentim rješenjem. Konačno, u poglavlju \ref{ch:conclusion} donesen je zaključak rada.
 
 \chapter{Pronalazak maksimalnih točnih slaganja} 
 \label{ch:mems}
@@ -47,9 +47,9 @@ U idućem odjeljku ovog poglavlja opisan je razvoj ideje o pronalasku maksimalni
 \section{Razvoj algoritma}
 \label{sec:development}
 
-Maksimalno točno slaganje \engl{Maximal exact match, MEM} je podniz oba niza koji predstavlja točno slaganje između njih koje se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između dva niza koja se uspoređuju. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. Sufiksno stablo je osnovna struktura podataka koja omogućuje brzu analizu nizova. Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja \engl{suffix array, SA}. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski utrošak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n$ - $20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
+Maksimalno točno slaganje \engl{Maximal Exact Match, MEM} je podniz oba niza koji predstavlja točno slaganje između njih koje se ne može produžiti lijevo niti desno bez da se dogodi neslaganje između dva niza koja se uspoređuju. Za pronalaženje MEM-ova potrebna je pogodna struktura podataka. Jedna od njih je sufiksno stablo. Sufiksno stablo je osnovna struktura podataka koja omogućuje brzu analizu nizova. Sufiksno stablo ima široku primjenu u bioinformatici. Mnoštvo primjena opisano je posebno početkom 21. stoljeća. Kako je potreba za korištenjem sufiksnih stabala rasla, bilo je potrebno pronaći novu strukturu podataka koja će unaprijediti već postojeću. Tako se došlo do alternativne strukture podataka, sufiksnog polja \engl{Suffix Array, SA}. Sufiksno polje je zamijelo sufiksno stablo. Glavni razlog tome je memorijski utrošak sufiksnog stabla. Sufiksno stablo za ulazni niz od $n$ znakova zahtijeva najmanje $10n$ okteta memorijskog prostora u praksi, a često i $15n$ - $20n$ okteta. Sufiksno polje teorijski zauzima $O(n log n)$ bita, a u praksi obično $4n$ okteta.
 
-Uobičajeno se koriste sufiksna stabla ili unaprijeđena sufiksna polja \engl{Enhanced Suffix Arrays, ESA} za pronalaženje MEM-ova. ESA se sastoji od četiri polja: sufiksnog polja, polja najvećih zajedničkih prefiksa \engl{Longest Common Prefix, LCP}, child polja i polja sufiksnih poveznica \engl{suffix link arrays} koja sadrže dijelove informacija iz sufiksnog stabla te zajedno dostižu potpunu ekspresivnost sufiksnih stabala. Dakle, svaki problem koji se može riješiti korištenjem sufiksnih stabala, može se riješiti i korištenjem ESA s istom asimptotskom složenošću.
+Uobičajeno se koriste sufiksna stabla ili unaprijeđena sufiksna polja \engl{Enhanced Suffix Arrays, ESA} za pronalaženje MEM-ova. ESA se sastoji od četiri polja: sufiksnog polja, polja najvećih zajedničkih prefiksa \engl{Longest Common Prefix, LCP}, child polja i polja sufiksnih poveznica \engl{Suffix Link Arrays} koja sadrže dijelove informacija iz sufiksnog stabla te zajedno dostižu potpunu ekspresivnost sufiksnih stabala. Dakle, svaki problem koji se može riješiti korištenjem sufiksnih stabala, može se riješiti i korištenjem ESA s istom asimptotskom složenošću.
 
 Khan \textit{et. al.} u \cite{ssa} savjetuje korištenje rijetkih sufiksnih polja \engl{Sparse Suffix Arrays, SSA}. Kod SSA, indeksira se svaki \textit{K}-ti sufiks. Parametar \textit{K} naziva se parametar rijetkosti, \engl{sparsness factor}. Algoritam koji koriste autori u radu \cite{ssa} za pronalaženje MEM-ova temelji se na SSA i pronalazi MEM-ove puno brže od prethodnih metoda. Uz brže pronalaženje MEM-ova algoritam koristi i značajno manje memorije od prethodnih metoda. Posljedično, uporabom SSA moguće je indeksirati znatno veće genome.
 
@@ -58,7 +58,7 @@ Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u
 \section{essaMEM algoritam}
 \label{sec:essamem}
 
-essaMEM algoritam sastoji se od nekoliko odvojenih koraka koji se izvršavaju na sljedeći način. Prvo se konstruira SA na način da se pozove \textit{radix sort} za sortiranje sufiksa prema njihovom prefiksu određene duljine, a zatim se pozove funkcija za sortiranje sufiksa \texttt{qsufsort} implementacije, koja dovršava sortiranje. Slijedi konstrukcija inverznog sufiksnog polja \engl{Inverse suffix array, ISA} koje se direktno konstruira iz SA. Nakon toga konstruira se LCP polje upotrebom algoritma iz \cite{lcp}. Za njegovu konstrukciju potrebni su SA i ISA. Nakon ovih predkoraka može se konstruirati child polje. Za to je potrebno samo LCP polje.
+essaMEM algoritam sastoji se od nekoliko odvojenih koraka koji se izvršavaju na sljedeći način. Prvo se konstruira SA na način da se pozove \textit{radix sort} za sortiranje sufiksa prema njihovom prefiksu određene duljine, a zatim se pozove funkcija za sortiranje sufiksa \texttt{qsufsort} implementacije, koja dovršava sortiranje. Slijedi konstrukcija inverznog sufiksnog polja \engl{Inverse Suffix Array, ISA} koje se direktno konstruira iz SA. Nakon toga konstruira se LCP polje upotrebom algoritma iz \cite{lcp}. Za njegovu konstrukciju potrebni su SA i ISA. Nakon ovih predkoraka može se konstruirati child polje. Za to je potrebno samo LCP polje.
 
 Navedene strukture su dovolje za ispravan i brz rad algoritma. U ostatku originalnog algoritma pretraga MEM-ova vrši se prolaskom po navedenim strukturama, no to izlazi izvan okvira ovog projekta.
 
@@ -85,7 +85,7 @@ $\forall k \in [i+1..q-1] : lcptab[k] > lcptab[q]\}$
 $childtab[i].nextLIndex = min\{q \in [i+1..n] \mid lcptab[q] = lcptab[i]$ i \\ \strut\hfill
 $\forall k \in [i+1..q-1] : lcptab[k] > lcptab[i]\}$
 
-Tablice \ref{tbl:example-full} i \ref{tbl:example} prikazuju vrijednosti sufiksnog i LCP polja te sve tri vrijednosti child polja na primjeru \textit{mississippi} za vrijednosti parametra $K = 1$ odnosno $K = 2$.
+Tablice \ref{tbl:example-full} i \ref{tbl:example} prikazuju vrijednosti sufiksnog i LCP polja te sve tri vrijednosti child polja za niz znakova \textit{mississippi} i za vrijednosti parametra $K = 1$ odnosno $K = 2$.
 
 \begin{table}[h]
 	\centering
