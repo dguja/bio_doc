@@ -269,7 +269,10 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 \end{table}
 
 \section{Ovisnost utroška resursa o parametrima}
-U nastavku su prikazani grafovi ovisnosti resursa o broju baza i o parametru rijetkosti $K$. Vrijeme izvršavanja i utrošena memorija su u linearnoj ovisnosti o broj baza što se vidi na slikama \ref{fig:time-base_number} i \ref{fig:memory-base_number}. \todo{Prokomentirati kroz rečenicu dvije slike \ref{fig:time-k} i \ref{fig:memory-k}}
+
+U nastavku su prikazani grafovi ovisnosti utroška resursa o broju baza $N$ i o parametru rijetkosti $K$. Na svakom grafu prikazane su tri krivulje: \textit{essa} -- utrošak cjelokupnog rješenja,, \textit{ssa} -- utrošak dijela rješenja do konstrukcije child polja te \textit{child} -- utrošak konsturkcije child polja. Kako se \textit{ssa} dio rješenja nalazi na početku, u izvršavanju ga je moguće izdvojiti i vršiti mjerenja samo za njega. \textit{child} dio se onda može dobiti oduzimanjem \textit{ssa} dijela od \textit{essa}. Na ovaj način dobivamo približan utrošak resursa potrebnih za konstrukciju child niza.
+
+Vrijeme izvršavanja i utrošena memorija su u linearnoj ovisnosti o broju baza što se vidi na slikama \ref{fig:time-base_number} i \ref{fig:memory-base_number}.
 
 \begin{figure}[!h]
 	\centering
@@ -286,6 +289,8 @@ U nastavku su prikazani grafovi ovisnosti resursa o broju baza i o parametru rij
   \caption{Ovisnost utrošene memorije o broju baza ($K = 10$)}
   \label{fig:memory-base_number}
 \end{figure}
+
+Na slikama \ref{fig:time-k} i \ref{fig:memory-k} vrijednost \textit{child} krivulje kreće se oko nule. To je zato jer je za veće vrijednosti parametra $K$ dominantan po utrošku resursa dio algoritma koji konstruira sufiksno polje.
 
 \begin{figure}[!h]
 	\centering
@@ -317,9 +322,9 @@ U sklopu ovog projektnog zadatka implementiran je algoritam izgradnje child polj
 \bibliographystyle{fer}
 
 \begin{sazetak}
-Komparativna genomika je područje bioinformatike u kojem se značajke genoma različitih organizama uspoređuju. Rastom broja dostupnih potpunih genoma organizama javlja se zahtjev za novim unaprijeđenim tehnikama usporedbe genoma. Bitan alat u komparativnoj genomici je traženje maksimalnih točnih slaganja. essaMEM je napredan algoritam za efikasno računanje maksimalnih točnih slaganja za velike nizove. Cilj ovog rada bio je proučiti algoritam essaMEM te implementirati izgradnju child polja. Na kraju rada predstavljeni su rezultati izgradnje child polja te su uspoređeni s referentnim rješenjem.
+  Komparativna genomika je područje bioinformatike u kojem se značajke genoma različitih organizama uspoređuju. Rastom broja dostupnih potpunih genoma organizama javlja se zahtjev za novim unaprijeđenim tehnikama usporedbe genoma. Bitan alat u komparativnoj genomici je traženje maksimalnih točnih slaganja. essaMEM je napredan algoritam za efikasno računanje maksimalnih točnih slaganja za velike nizove. Cilj ovog rada bio je proučiti algoritam essaMEM te implementirati izgradnju child polja. Na kraju rada predstavljeni su rezultati izgradnje child polja te su uspoređeni s referentnim rješenjem.
 
-  \kljucnerijeci{MEM, enhanced sparse suffix array, child array, child array construction}
+  \kljucnerijeci{essaMEM, MEM, enhanced sparse suffix array, child array}
 \end{sazetak}
 
 \end{document}
