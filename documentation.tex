@@ -58,7 +58,7 @@ Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u
 \section{essaMEM algoritam}
 \label{sec:essamem}
 
-essaMEM algoritma sastoji se od nekoliko odvojenih koraka koji se redu izvršavaju na sljedeći način. Prvo se konstruira SA na način da se pozove \textit{radix sort} za sortiranje sufiksa prema njihovom prefiksu određene duljine, a zatim se pozove funkcija za sortiranje sufiksa \texttt{qsufsort} implementacije, koja dovršava sortiranje. Slijedi konstrukcija inverznog sufiksnog polja \engl{Inverse suffix array, ISA} koje se direktno konstruira iz SA. Nakon toga konstruira se LCP polje upotrebom algoritma iz \cite{lcp}. Za njegovu konstrukciju potrebni su SA i ISA. Nakon ovih predkoraka može se konstruirati child polje. Za to je potrebno samo LCP polje.
+essaMEM algoritam sastoji se od nekoliko odvojenih koraka koji se izvršavaju na sljedeći način. Prvo se konstruira SA na način da se pozove \textit{radix sort} za sortiranje sufiksa prema njihovom prefiksu određene duljine, a zatim se pozove funkcija za sortiranje sufiksa \texttt{qsufsort} implementacije, koja dovršava sortiranje. Slijedi konstrukcija inverznog sufiksnog polja \engl{Inverse suffix array, ISA} koje se direktno konstruira iz SA. Nakon toga konstruira se LCP polje upotrebom algoritma iz \cite{lcp}. Za njegovu konstrukciju potrebni su SA i ISA. Nakon ovih predkoraka može se konstruirati child polje. Za to je potrebno samo LCP polje.
 
 Navedene strukture su dovolje za ispravan i brz rad algoritma. U ostatku originalnog algoritma pretraga MEM-ova vrši se prolaskom po navedenim strukturama, no to izlazi izvan okvira ovog projekta.
 
