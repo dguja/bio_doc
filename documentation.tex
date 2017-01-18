@@ -52,16 +52,18 @@ Vyverman \textit{et. al.} u \cite{essa} želi poboljšati metodu predstavljenu u
 
 \section{essaMEM algoritam}
 
-\todo{Ukratko opisati tok algoritma: konstrukcija SA, ISA, LCP, a zatim child polja}
+essaMEM algoritma sastoji se od nekoliko odvojenih koraka koji se redu izvršavaju na sljedeći način. Prvo se konstruira SA na način da se pozove \textit{radix sort} za sortiranje sufiksa prema njihovom prefiksu određene duljine, a zatim se pozove funkcija za sortiranje sufiksa \texttt{qsufsort} implementacije, koja dovršava sortiranje. Slijedi konstrukcija inverznog sufiksnog polja \engl{Inverse suffix array, ISA} koje se direktno konstruira iz SA. Nakon toga konstruira se LCP polje upotrebom algoritma iz \cite{lcp}. Za njegovu konstrukciju potrebni su SA i ISA. Nakon ovih predkoraka može se konstruirati child polje. Za to je potrebno samo LCP polje.
 
-U sljedećim poglavljima opisan je postupak izgradnje \textit{child} polja te su prikazani rezultati usporedbe između izvedene i referentne implementacije.
+Navedene strukture su dovolje za ispravan i brz rad algoritma. U ostatku originalnog algoritma pretraga MEM-ova vrši se prolaskom po navedenim strukturama, no to izlazi izvan okvira ovog projekta.
 
 \chapter{Child polje}
 \label{ch:child}
 
+\section{Uvod i definicije}
+
 MEM-ovi se pronalaze obilaskom sufiksnog stabla odozgo prema dolje. Koristeći SA i LCP polje ovaj problem moguće je riješiti u složenosti $O(m + log n)$. Ukoliko se SA proširi dodatnim child poljem problem je moguće riješiti u složenosti $O(m)$.
 
-Dohvat djece unutarnjih čvorova konceptualnog sufiksnog stabla ostvarenog pomoću SA i LCP polja moguće je obaviti u konstantnom vremenu koristeći child polje. Za izgradnju child polja koristi se informacija o LCP intervalima, definiranima u \citep{esa}. Bitno je naglasiti da su LCP intervali samo konceptualni te se nikada ne konstruiraju niti čuvaju u memoriji.
+Dohvat djece unutarnjih čvorova konceptualnog sufiksnog stabla ostvarenog pomoću SA i LCP polja moguće je obaviti u konstantnom vremenu koristeći child polje. Za izgradnju child polja koristi se informacija o LCP intervalima, definiranima u \cite{esa}. Bitno je naglasiti da su LCP intervali samo konceptualni te se nikada ne konstruiraju niti čuvaju u memoriji.
 
 Child polje je duljine $n / K$, a svaki element u polju sadrži vrijednosti \textit{up}, \textit{down} i \textit{nextLIndex}. Te vrijednosti definirane su u nastavku:
 
@@ -118,7 +120,7 @@ Tablice \ref{tbl:example-full} i \ref{tbl:example} prikazuju vrijednosti sufiksn
 
 Child polje nosi informaciju o odnosu roditelj-dijete u LCP intervalima. Za LCP interval [i..j] s \textit{l}-indeksima $i_1 < i _2 <$ ... $< i_k$, $childtab[i].down$ ili $childtab[j+1].up$ vrijednost koristi se za dobivanje prvog \textit{l}-indeksa $i_1$. Ostali \textit{l}-indeksi $i _2$, ..., $i_k$ dobivaju se redom iz $childtab[i_1].nextLIndex$, ..., $childtab[i_{k-1}].nextLIndex$. U \cite{esa} je dokazano da su sada child intervali LCP intervala [i..j] redom [$i..i_1-1$], [$i_1..i_2-1$], ..., [$i_k..j$].
 
-\chapter{Konstrukcija child polja}
+\section{Konstrukcija child polja}
 
 Algoritam \ref{alg:child-array} prikazuje izgradnju rijetkog child polja. Originalni algoritam dokazan je u \cite{esa}, a autori u \cite{essa} modificiraju ga za rad s rijetkim sufiksnim poljem. Kao što je rečeno u poglavlju \ref{ch:child}, za izgradnju child polja potrebno je imati samo informaciju sadržanu u LCP intervalima. Obzirom da uvođenje parametra rijetkosti $K$ ne utječe na definiciju LCP intervala, moguće je izgraditi rijetko child polje.
 
@@ -335,10 +337,9 @@ Pronalaženje maksimalnih točnih slaganja je vrlo bitan alat u komparativnoj ge
 
 Sufiksna stabla su prva struktura koja je omogućila efikasno uspoređivanje nizova. Razvojem područja razvila su se sufiksna polja. Ona omogućuju stvaranje virtualnih sufiksnih stabala te donose poboljšanja u iskoristivosti resursa. Cijena toga je složenost izgradnje takve strukture.
 
-Napredak u razvoju sufiksnih polja omogućuje izgradnju efikasnijih algoritama za pronalazak najvećih točnih slaganja. essaMEM predstavlja poboljšanje dosadašnjih metoda. To je složen postupak pogodan za pronalaženje MEM-ova nad velikim nizovima. Također, zbog složenosti algoritma javlja se pitanje reproducibilnosti algoritma. \todo{možeš maknuti ovu rečenicu ako smatraš neprikladnom. meni se čini da je ovo sasvim uredu opažanje}
+Napredak u razvoju sufiksnih polja omogućuje izgradnju efikasnijih algoritama za pronalazak najvećih točnih slaganja. essaMEM predstavlja poboljšanje dosadašnjih metoda. To je složen postupak pogodan za pronalaženje MEM-ova nad velikim nizovima. 
 
 U sklopu ovog projektnog zadatka implementiran je algoritam izgradnje child polja, jedne od ključnih struktura algoritma essaMEM. Implementirana inačica postiže vrlo slične rezultate kao i referentno rješenje. Vremensko izvođenje implementiranog algoritma izgradnje child polja je u većini slučajeva kraće od referentnog rješenja te je memorijski utrošak manji.
-
 
 \bibliography{literature}
 \bibliographystyle{fer}
