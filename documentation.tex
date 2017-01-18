@@ -316,7 +316,7 @@ Iz rezultata prikazanih tablicama \ref{tbl:memory-bacteria} i \ref{tbl:memory-ge
 
 U nastavku su prikazani grafovi ovisnosti utroška resursa o broju baza $N$ i o parametru rijetkosti $K$. Na svakom grafu prikazane su tri krivulje: \textit{essa} -- utrošak cjelokupnog rješenja,, \textit{ssa} -- utrošak dijela rješenja do konstrukcije child polja te \textit{child} -- utrošak konsturkcije child polja. Kako se \textit{ssa} dio rješenja nalazi na početku, u izvršavanju ga je moguće izdvojiti i vršiti mjerenja samo za njega. \textit{child} dio se onda može dobiti oduzimanjem \textit{ssa} dijela od \textit{essa}. Na ovaj način dobivamo približan utrošak resursa potrebnih za konstrukciju child niza.
 
-Vrijeme izvršavanja i utrošena memorija su u linearnoj ovisnosti o broju baza što se vidi na slikama \ref{fig:time-base_number} i \ref{fig:memory-base_number}.
+Vrijeme izvršavanja i utrošena memorija su u linearnoj ovisnosti o broju baza što se vidi na slikama \ref{fig:time-base_number} i \ref{fig:memory-base_number}. Ovaj rezultat je očekivan prema algoritmu.
 
 \begin{figure}[!h]
 	\centering
@@ -334,7 +334,7 @@ Vrijeme izvršavanja i utrošena memorija su u linearnoj ovisnosti o broju baza 
   \label{fig:memory-base_number}
 \end{figure}
 
-Na slikama \ref{fig:time-k} i \ref{fig:memory-k} vrijednost \textit{child} krivulje kreće se oko nule. To je zato jer je za veće vrijednosti parametra $K$ dominantan po utrošku resursa dio algoritma koji konstruira sufiksno polje.
+Na slici \ref{fig:time-k} vrijednost \textit{child} krivulje kreće se oko nule. To je zato jer je za veće vrijednosti parametra $K$ dominantan po utrošku resursa dio algoritma koji konstruira sufiksno polje. Na slici \ref{fig:time-k} može se vidjeti ovisnost utroška memorije obrnuto proporcionalna parametru $K$, što je i očekivano.
 
 \begin{figure}[!h]
 	\centering
